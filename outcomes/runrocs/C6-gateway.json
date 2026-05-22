@@ -1,0 +1,32 @@
+{
+  "as_of": "2026-05-22T06:35:00Z",
+  "track": "C",
+  "outcome": "C6",
+  "status": "blocked",
+  "title": "C6 — AI Gateway in front of the MCP",
+  "queue_row": "C6 | pending | C2 | AI Gateway in front of the MCP; verify gateway log entries | runrocs/C6-gateway.json",
+  "finding": "Cloudflare AI Gateway is designed to proxy requests to LLM providers (OpenAI, Anthropic, Google AI, Workers AI, etc.) by rewriting the API endpoint your application calls so traffic flows through the gateway for caching, rate-limiting, logging, and analytics. It does NOT sit in front of arbitrary HTTP endpoints like the outcomes-mcp Worker.",
+  "evidence": {
+    "primary_doc": "https://developers.cloudflare.com/use-cases/ai/",
+    "primary_doc_quote": "AI Gateway does not require a domain added to Cloudflare. You can place it in front of any existing AI provider (OpenAI, Anthropic, and others) by updating your API endpoint to route through AI Gateway.",
+    "providers_doc": "https://developers.cloudflare.com/ai-gateway/usage/providers/",
+    "providers_list": ["OpenAI", "Anthropic", "Google AI", "Groq", "Mistral", "Workers AI", "Replicate", "Hugging Face", "DeepSeek", "Perplexity", "Cohere", "Cerebras", "Azure OpenAI", "AWS Bedrock", "Vertex AI"]
+  },
+  "why_misfit": "outcomes-mcp is a deterministic HeuristicVerifier — no LLM is called inside the worker. There is no upstream LLM provider URL for AI Gateway to rewrite. The MCP server is itself the terminal endpoint, not a client of an LLM provider.",
+  "alternatives_considered": [
+    {
+      "option": "Wrap a hypothetical LLM-backed verifier (open-outcome.anthropic.judge) behind AI Gateway",
+      "verdict": "Would fit the AI Gateway contract, but requires a separate LLM verifier that does not exist in the spec yet. Marking C6 done on that basis would invent a new outcome (forbidden by the rules)."
+    },
+    {
+      "option": "Use Cloudflare Logpush or Workers Logs (already enabled via observability) as the 'gateway log' analog",
+      "verdict": "C5 already covers this via the Observability MCP. Re-using C5 for C6 would also invent a different outcome than the row describes."
+    },
+    {
+      "option": "Use Cloudflare Access (Zero Trust) in front of /mcp as an actual auth+log gateway",
+      "verdict": "Plausible substitute matching the spirit of C6 (auth + log gateway), but the QUEUE row literally says 'AI Gateway', a specific product. Per 'Never invent new outcomes', the heartbeat does not silently switch products."
+    }
+  ],
+  "decision": "C6 flipped pending → blocked. The runroc records the misfit + alternatives so the operator can decide on the next operator-present tick whether to (a) leave C6 blocked, (b) update the QUEUE row to point at Workers Logs or Cloudflare Access instead, or (c) add an LLM-backed verifier to the spec and revisit.",
+  "tool_used": "mcp__MCP_DOCKER__search_cloudflare_documentation (Cloudflare Docs MCP via Docker profile reinforcement_data_engineering)"
+}

@@ -34,8 +34,8 @@
 
 | id | status | depends_on | title | runroc_path |
 |---|---|---|---|---|
-| B1 | pending | A1 | Prove `typecheck` workflow runs green on a probe commit | PR URL |
-| B2 | pending | A1 | (Subsumed into A1 — drop if A1 covers it) Branch protection mirror | PR URL |
+| B1 | done | A1 | Prove `typecheck` workflow runs green on a probe commit | `outcomes/runrocs/B1-typecheck-runs.json` |
+| B2 | done | A1 | Subsumed into A1 — branch protection already covers outcomes-mcp main | `outcomes/runrocs/A1-protection.json` |
 | B3 | pending | A1 | Submodule outcomes-mcp into `opensubagents/outcomes/mcp-server/` via PR on outcomes repo | PR URL on outcomes |
 | B4 | pending | A1 | `scripts/probe.sh below-floor` opens a draft PR with known-failing pair; asserts gate red | `runrocs/B4-probe.log` |
 | B5 | pending | D3 | Ratchet floor 3.5→4.0 in a feature branch; bootstrap pair must still pass; hold for human merge | PR URL |
@@ -95,6 +95,9 @@ The heartbeat appends one line per tick:
 - 2026-05-22T05:50Z tick-2 noted: outcomes#3 still red; ci-firefighter now exists but the heartbeat itself didn't spawn it this tick (one atomic step rule); will spawn next tick
 - 2026-05-22T06:00Z tick-3 A5 pending → done (.claude/settings.json + scripts/session-start.sh; latency runroc 5x runs, 4/5 at 0.00s) | next: B1
 - 2026-05-22T06:00Z tick-3 dispatched ci-firefighter subagent on outcomes#3: classified as outcome-gate failure (missing pair); posted triage comment + tagged @alex-jadecli; PR author owns the fix
+- 2026-05-22T06:05Z tick-4 B1 pending → done (typecheck runroc captured 6 runs all SUCCESS) + B2 pending → done (subsumed into A1) | next: B3
+- 2026-05-22T06:05Z tick-4 outcomes#3 still red: same outcome-gate-missing-pair situation; firefighter already triaged it, awaiting operator action
+
 
 
 

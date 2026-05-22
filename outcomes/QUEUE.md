@@ -28,7 +28,7 @@
 | A2 | done | — | QUEUE.md committed at `outcomes/QUEUE.md` with all 31 outcomes | `outcomes/QUEUE.md` |
 | A3 | done | — | Heartbeat prompt committed at `.claude/loop-prompt.md` | `.claude/loop-prompt.md` |
 | A4 | done | A3 | Three review subagents codified in `.claude/agents/`: outcome-reviewer, ci-firefighter, rubric-tightener | `.claude/agents/README.md` |
-| A5 | pending | — | Session-start hook (background dispatch + sentinel guard, <100ms blocking) at `.claude/settings.json` + `scripts/session-start.sh` | `runrocs/A5-latency.txt` |
+| A5 | done | — | Session-start hook (background dispatch + sentinel guard, <100ms blocking) at `.claude/settings.json` + `scripts/session-start.sh` | `outcomes/runrocs/A5-latency.txt` |
 
 ### Track B — Outcome-gate hardening
 
@@ -93,5 +93,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T05:45Z tick-1 noted: outcomes#3 has 1 failing check; ci-firefighter subagent (A4) not yet shipped, will revisit after A4 merges
 - 2026-05-22T05:50Z tick-2 A4 pending → done (3 subagents codified in .claude/agents/) | next: A5
 - 2026-05-22T05:50Z tick-2 noted: outcomes#3 still red; ci-firefighter now exists but the heartbeat itself didn't spawn it this tick (one atomic step rule); will spawn next tick
+- 2026-05-22T06:00Z tick-3 A5 pending → done (.claude/settings.json + scripts/session-start.sh; latency runroc 5x runs, 4/5 at 0.00s) | next: B1
+- 2026-05-22T06:00Z tick-3 dispatched ci-firefighter subagent on outcomes#3: classified as outcome-gate failure (missing pair); posted triage comment + tagged @alex-jadecli; PR author owns the fix
+
 
 

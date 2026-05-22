@@ -1,0 +1,21 @@
+{
+  "title": "Tick 24: ship .vscode mcp json config plus text-mode reachability runroc for the VS Code MCP probe surface",
+  "as_of": "2026-05-22",
+  "question": "Does the outcomes-mcp repo now contain a .vscode mcp json that declares the live workers dev URL as a remote HTTP MCP server with a bearer-token input prompt and does the text-mode runroc at outcomes runrocs F2-vscode md prove the live worker is reachable from a VS Code-shaped MCP initialize handshake?",
+  "success_criteria": [
+    ".vscode mcp json declares the outcomes-mcp server with type http url pointing at the deployed workers dev URL and a Bearer Authorization header sourced from a password input prompt",
+    "outcomes runrocs F2-vscode md captures the reachability evidence including the healthz GET HTTP 200 the mcp POST HTTP 200 the initialize response with serverInfo name codemode version 1.0.0 and the tools listChanged true marker",
+    "the runroc documents the operator action required to capture the literal F2-vscode png so a future operator-present tick can attach the PNG without re-running the heartbeat",
+    "the bearer token is referenced by path /tmp outcomes-mcp-bearer-token-tick9 txt not embedded in the config or the runroc"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      ".vscode mcp json present with the documented input prompt pattern",
+      "live worker reachable with bearer auth from a VS Code-shaped initialize handshake",
+      "text-mode runroc replaces the screenshot for heartbeat record-keeping",
+      "operator action to capture the literal PNG is documented step by step"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

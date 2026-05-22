@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/mcp.json",
+  "servers": {
+    "outcomes-mcp": {
+      "type": "http",
+      "url": "https://outcomes-mcp.alex-e62.workers.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer ${input:outcomes-mcp-bearer}"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "outcomes-mcp-bearer",
+      "description": "Bearer token for outcomes-mcp (matches wrangler secret MCP_BEARER_TOKEN; see C4 runroc)",
+      "password": true
+    }
+  ]
+}

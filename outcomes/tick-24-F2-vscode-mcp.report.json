@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend shipping F2 as a .vscode mcp json config plus a text-mode reachability runroc rather than blocking on operator-present screenshot capture because the heartbeat can produce the config that enables the screenshot and the textual proof a future operator can diff against without an interactive GUI session. The tradeoff against literally producing the F2-vscode png file the QUEUE row names is that the heartbeat has no display surface so the operator owns the PNG capture step which the runroc documents explicitly. The reachability proof is a real CLI-driven MCP initialize handshake against the live worker showing HTTP 200 on both healthz and mcp paths and the codemode wrapped server identifying itself correctly which is the same evidence VS Code would surface in its MCP servers panel.",
+  "claims": [
+    {
+      "statement": ".vscode mcp json declares the outcomes-mcp server as a remote HTTP MCP at the deployed workers dev URL with a Bearer Authorization header sourced from a password-typed inputs prompt because the file enumerates exactly the servers block and the inputs array with id outcomes-mcp-bearer marked password true.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/.vscode/mcp.json",
+          "title": "vscode mcp json declares the outcomes-mcp remote server",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://code.visualstudio.com/docs/copilot/chat/mcp-servers",
+          "title": "VS Code Copilot Chat MCP servers documentation describing the json schema",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The bearer token itself is never committed; it lives in VS Code secure storage after the operator pastes it once. The matching wrangler secret was set in tick 9 (C4) and is rotatable via wrangler secret put MCP_BEARER_TOKEN."
+    },
+    {
+      "statement": "the live worker is reachable from a VS Code-shaped MCP initialize handshake because the heartbeat ran GET healthz which returned HTTP 200 in 336ms and POST mcp with Bearer auth and a JSON-RPC initialize payload which returned HTTP 200 in 310ms with the codemode serverInfo and the tools listChanged true marker.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/F2-vscode.md",
+          "title": "F2 vscode runroc captures the reachability probes and the initialize response",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/src/index.ts",
+          "title": "outcomes-mcp source defines the bearer-gated mcp path and the codemode wrapping",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Latencies include TLS handshake; subsequent VS Code sessions on the same operator machine would amortize the handshake. The 336ms healthz and 310ms mcp are cold-path numbers consistent with the C2 deploy and the C4 auth probe."
+    },
+    {
+      "statement": "the operator action to capture the literal F2-vscode png is documented step by step in the runroc with five concrete instructions covering opening the repo opening the Copilot Chat pane pasting the bearer verifying the green indicator and saving the PNG so a future operator-present tick can attach the file without re-running the heartbeat.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/F2-vscode.md",
+          "title": "F2 vscode runroc operator action required section",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/.vscode/mcp.json",
+          "title": "vscode mcp json that the operator opens in VS Code to trigger the panel",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "outcomes runrocs is gitignored at the directory level so the future PNG attach will need git add -f as documented in the operator-action section; this mirrors the pattern used in B4 C2 C5 etc."
+    }
+  ],
+  "open_questions": [
+    "Should F3 Claude Desktop and F2 VS Code share a single bearer-token rotation runbook so a future token bump propagates to both surfaces without per-surface drift?"
+  ],
+  "methodology_notes": "Authored .vscode mcp json against the documented VS Code MCP schema with the password-input prompt pattern then ran curl probes against the deployed worker with VS Code-shaped clientInfo and Bearer auth. Captured the probe responses and the operator action steps as the text-mode runroc."
+}

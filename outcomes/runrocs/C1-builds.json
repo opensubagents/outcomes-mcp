@@ -1,0 +1,36 @@
+{
+  "as_of": "2026-05-22",
+  "track": "C",
+  "outcome": "C1",
+  "title": "Cloudflare Workers Builds MCP query for outcomes-mcp build history",
+  "account": {
+    "id": "e6294e3ea89f8207af387d459824aaae",
+    "name": "Alex@jadecli.com's Account"
+  },
+  "query": "workers_list (count=15) + manual search for any worker named 'outcomes-mcp' or 'outcomes'",
+  "result": {
+    "outcomes_mcp_worker_present": false,
+    "outcomes_mcp_worker_id": null,
+    "builds_history": [],
+    "interpretation": "No Cloudflare Worker named 'outcomes-mcp' (or any 'outcomes*' variant) exists in account e6294e3ea89f8207af387d459824aaae as of 2026-05-22T06:18Z. workers_builds_list_builds was therefore not invoked because it requires a workerId. This is the expected pre-deployment state: outcomes-mcp ships as source in the GitHub repo but has not yet been deployed via wrangler. C2 (wrangler deploy + /healthz probe) is the next Track C step to create the worker and a build history will become queryable thereafter."
+  },
+  "workers_present_in_account": [
+    {"name": "claude-managed-agents-control-plane", "id": "7a117f1886df4a5cb0f4528d374aecdf", "modified_on": "2026-05-20T22:52:49.917865Z"},
+    {"name": "gh-pr-mcp", "id": "cec4377142534545934daee32ec985e1", "modified_on": "2026-05-21T07:16:57.874173Z"},
+    {"name": "subagentengineering", "id": "212a084420e644de9247c5e981f07913", "modified_on": "2026-05-19T06:38:28.578448Z"},
+    {"name": "subagentfinance", "id": "39866c73ea854c4db33dd5519d2fa6f9", "modified_on": "2026-05-19T06:37:41.51954Z"},
+    {"name": "subagentlegal", "id": "87d1ee4be3124cb1bddf786228245760", "modified_on": "2026-05-19T06:37:00.138605Z"},
+    {"name": "subagentdispatch", "id": "93e6e72d434c4c7dae925d0fef6da60a", "modified_on": "2026-05-19T06:36:16.962647Z"},
+    {"name": "ke-cloud-agent", "id": "0b736d660a1543709c6e49a685031aa9", "modified_on": "2026-05-15T10:15:54.023194Z"},
+    {"name": "subagenthandoffs-manifest-diff", "id": "90c6f78f1a8e4e65ae5480d29bc98477", "modified_on": "2026-05-06T01:27:47.077437Z"},
+    {"name": "subagentmcp", "id": "1971872d5fed4e35ba00f0c7c4cdeb4c", "modified_on": "2026-05-19T17:51:27.386975Z"},
+    {"name": "managedsubagents-web", "id": "b67cf5330892487c84ce2f9ec54fdb61", "modified_on": "2026-04-28T13:13:15.368326Z"},
+    {"name": "subagentorganizations", "id": "a6b4a24ba88d4ddfaafbc5ac74c55c23", "modified_on": "2026-04-27T18:19:55.695429Z"},
+    {"name": "claude-telemetry", "id": "88207633190d41efa157a40cebe821e1", "modified_on": "2026-03-25T05:46:03.733919Z"},
+    {"name": "jade-os", "id": "2f42f2e4a82b47bc9faa45b9b7adba89", "modified_on": "2026-03-24T23:14:10.994428Z"},
+    {"name": "litellm-gateway", "id": "b6da239c82ca486992208b2e1031b271", "modified_on": "2026-02-17T06:47:58.446254Z"},
+    {"name": "little-bar-b4eb", "id": "2053283b43304c809819faefb4d65831", "modified_on": "2026-02-17T06:34:28.984401Z"}
+  ],
+  "tool_used": "mcp__MCP_DOCKER__workers_list (Cloudflare Workers MCP via Docker profile reinforcement_data_engineering)",
+  "next_action": "C2 — wrangler deploy outcomes-mcp; then re-run this audit and builds history will populate."
+}

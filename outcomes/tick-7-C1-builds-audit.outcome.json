@@ -1,0 +1,19 @@
+{
+  "title": "Tick 7: Cloudflare Workers Builds MCP audit for outcomes-mcp pre-deploy state",
+  "as_of": "2026-05-22",
+  "question": "Does a Cloudflare Worker named outcomes-mcp exist in the operator's account today and if so what is its build history?",
+  "success_criteria": [
+    "workers_list query against account e6294e3ea89f8207af387d459824aaae returns the full 15-worker inventory and is captured in the runroc",
+    "no worker named outcomes-mcp or any outcomes prefix variant is present which establishes the pre-deploy baseline that C2 will change",
+    "runroc outcomes runrocs C1-builds json records the empty builds history with an explicit interpretation pointing at C2 as the next Track C step"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "workers_list MCP call returned the 15-worker inventory for the active account",
+      "absence of an outcomes-mcp worker confirmed before C2 wrangler deploy runs",
+      "runroc artifact captures the pre-deploy baseline so C2 can be diffed against it"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

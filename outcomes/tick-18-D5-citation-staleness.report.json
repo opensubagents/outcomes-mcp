@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend treating D5 as done because opensubagents outcomes pull 11 lands the citation-staleness downgrade in both reference SDKs in lockstep with the spec doc update and three new sdk-python tests covering the new behavior. The tradeoff against landing only the python SDK first is that both SDKs are reference implementations of the spec so keeping them in sync prevents downstream consumers from picking up a partial port. The dogfood pair on the outcomes spec repo scores 5.0 against the new verifier proving the rule does not regress well-sourced reports.",
+  "claims": [
+    {
+      "statement": "opensubagents outcomes pull 11 was opened by the orchestrator with auto-merge armed via alex-jadecli and contains a single commit that touches sdk-python verifier py sdk-typescript verifier ts specification appendix-a-rubric md sdk-python tests test_verifier py and outcomes citation-staleness pair.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes/pull/11",
+          "title": "outcomes pull 11 D5 citation-staleness PR",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "QUEUE md D5 row updated to in_progress with the cross-repo PR URL",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "PR opensubagents outcomes 11 is awaiting CI green before auto-merge fires; if the outcome-gate or python-sdk workflow goes red the orchestrator will spawn a ci-firefighter subagent in the next tick."
+    },
+    {
+      "statement": "the staleness downgrade is implemented identically in sdk-python and sdk-typescript because both verifiers compute the base citation_quality score and then apply a one-point downgrade if a majority of citations have an accessed date older than STALE_CITATION_DAYS at the wall-clock date at scoring time with a floor of 1.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes/pull/11/files",
+          "title": "outcomes pull 11 file diff shows the matching algorithm in both SDKs",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes/blob/main/specification/appendix-a-rubric.md",
+          "title": "appendix-a-rubric md normative description of the staleness downgrade",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "TS Date arithmetic uses setUTCDate to avoid local timezone drift; the python and TS implementations agree within one wall-clock day which is acceptable for a freshness signal."
+    },
+    {
+      "statement": "the full sdk-python test suite passes at 27 of 27 including three new staleness tests test_citation_staleness_downgrades_quality test_citation_staleness_floor_at_one and test_citation_staleness_fresh_no_downgrade because the orchestrator ran the suite locally before opening the PR.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes/blob/main/sdk-python/tests/test_verifier.py",
+          "title": "sdk-python test_verifier py with the three new staleness tests",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes/actions/workflows/python-sdk.yml",
+          "title": "python-sdk workflow that runs the test suite on every PR",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "TS-side test coverage for staleness is not added by this PR; a follow-up should mirror the three tests in sdk-typescript tests."
+    }
+  ],
+  "open_questions": [
+    "Should the staleness threshold be configurable per HeuristicVerifier instance so different deployments can tune freshness without forking the SDK?"
+  ],
+  "methodology_notes": "Edited the python verifier first then ported one-to-one to TypeScript matching the canonical order in the existing port comment. Ran sdk-python pytest to confirm 27 of 27 pass before opening the PR. Authored the dogfood pair on the outcomes spec repo and verified it scores 5.0 against the new verifier before pushing."
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Tick 16: write ADR 0001 rubric-calibration recording the D3 confusion matrix and the calibration baseline decisions",
+  "as_of": "2026-05-22",
+  "question": "Does docs adrs 0001-rubric-calibration md record the D3 confusion matrix on floor 3.5 and document the calibration baseline decisions including why the ratchet to 4.0 is deferred and how to re-run the calibration?",
+  "success_criteria": [
+    "docs adrs 0001-rubric-calibration md exists with a Status Accepted line and a Date of 2026-05-22",
+    "the ADR records TP=20 FN=0 TN=20 FP=0 accuracy=1.0 precision=1.0 recall=1.0 from the 2026-05-22 evals results file",
+    "the ADR records that every rubric dimension fires in isolation across the failing fixture buckets a* b* c* d* e* f*",
+    "the ADR explicitly defers the ratchet to floor 4.0 to B5 and names the calibration shoulder needed before that ratchet can land"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "ADR 0001 rubric-calibration md present with Status Accepted",
+      "D3 confusion matrix records TP=20 FN=0 TN=20 FP=0 with all-1.0 metrics",
+      "every rubric dimension fires in isolation across the failing bucket prefixes",
+      "ratchet to 4.0 is deferred to B5 with the calibration shoulder requirement documented"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

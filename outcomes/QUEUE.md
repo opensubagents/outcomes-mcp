@@ -70,7 +70,7 @@
 | E1 | done | A4 | outcome-reviewer subagent runnable: reads open PR, scores pair, posts review comment — dispatched on opensubagents/outcomes-mcp#18, posted structured comment with overall 4.4 verdict | https://github.com/opensubagents/outcomes-mcp/pull/18#issuecomment-4516292475 |
 | E2 | done | A4 | ci-firefighter subagent runnable: reads failed CI, classifies failure, posts triage comment (and honors dedup) — dispatched against outcomes#3, classified outcome-gate, observed prior triage, no duplicate posted | https://github.com/opensubagents/outcomes/pull/3#issuecomment-4515536028 |
 | E3 | done | A4,D3 | rubric-tightener subagent runnable: given matrix from D3, proposes rubric edit (or `no_tightening_needed` when matrix is error-free) — dispatched against current perfect matrix, returned no_tightening_needed citing ADR 0001 blind spot | `outcomes/runrocs/E3-rubric-tightener.md` |
-| E4 | pending | E1,E2,E3 | `.claude/dispatch.json` event→subagent matrix; test simulates each event | `runrocs/E4-dispatch-test.log` |
+| E4 | done | E1,E2,E3 | `.claude/dispatch.json` event→subagent matrix + scripts/dispatch-test.sh harness (9/9 cases pass) | `outcomes/runrocs/E4-dispatch-test.log` |
 
 ### Track F — Operator surfaces
 
@@ -133,6 +133,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T07:30Z tick-21 outcomes#3 still red, unchanged (ci-firefighter dedup confirmed prior triage stands); outcomes-mcp#21 (tick 20) merged at 07:23:38Z; outcomes-mcp#18 (B5) still held
 - 2026-05-22T07:35Z tick-22 E3 pending → done (rubric-tightener subagent dispatched against perfect D3 matrix; returned no_tightening_needed verdict citing ADR 0001 blind-spot warning; no SDK touched, no PR opened) | next: E4 (dispatch matrix — E1/E2/E3 all done) or F2/F3/F4 (operator surfaces)
 - 2026-05-22T07:35Z tick-22 outcomes#3 still red, unchanged; outcomes-mcp#22 (tick 21) merged at 07:27:16Z; outcomes-mcp#18 (B5) still held
+- 2026-05-22T07:40Z tick-23 E4 pending → done (.claude/dispatch.json + scripts/dispatch-test.sh shipped; jq-based selector with 9 test cases covering 3 positive matches 5 negative matches + unknown-event fallback; 9/9 pass) | next: F2/F3/F4 (operator surfaces — F4 has no remote deps)
+- 2026-05-22T07:40Z tick-23 outcomes#3 still red, unchanged; outcomes-mcp#23 (tick 22) merged at 07:31:46Z; outcomes-mcp#18 (B5) still held. **Track E now COMPLETE (E1/E2/E3/E4 all done)**
 
 
 

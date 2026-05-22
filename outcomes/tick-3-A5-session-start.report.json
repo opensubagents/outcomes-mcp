@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend the session-start hook now shipping under claude settings json and scripts session-start sh because it adds zero perceptible latency to the prompt while still letting a forked background child write an orientation file to tmp outcomes-mcp-session txt. The tradeoff is that the orientation file is best-effort and not guaranteed to be ready by the time Claude reads it but the contract was never blocking. The reverted earlier-session hook in opensubagents outcomes blocked the prompt for tens of seconds; this design avoids that by sentinel-guarding and forking. The five measured runs in the runroc show four of five at zero seconds and the cold first run at 0.36 seconds where most of that is shell startup not the hook.",
+  "claims": [
+    {
+      "statement": "claude settings json registers a SessionStart hook with matcher startup only so resume is free of latency because the file at claude settings json declares hooks SessionStart with matcher equal to startup and a single command pointing at scripts session-start sh.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/.claude/settings.json",
+          "title": "settings json declares SessionStart matcher startup",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes/pull/5",
+          "title": "Reverted earlier SessionStart hook PR where matcher startup pipe resume blocked the prompt with tens of seconds of apt and service work",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "If a future need requires per-resume work that work belongs in a separate hook event or in the heartbeat itself not in SessionStart."
+    },
+    {
+      "statement": "scripts session-start sh forks a background child and returns immediately under one hundred milliseconds with a sentinel guard at tmp outcomes-mcp-session-init done preventing duplicate runs within the same pid.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/scripts/session-start.sh",
+          "title": "session-start sh source committed in this PR shows the fork and disown pattern",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/A5-latency.txt",
+          "title": "A5 latency runroc captures five timed runs",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The first cold run measured 0.36 seconds because shell startup dominates the time; subsequent runs measured zero seconds as the sentinel and the forked child both behaved as expected."
+    },
+    {
+      "statement": "runroc A5-latency txt shows five measured runs of the hook all well under one hundred milliseconds blocking after the cold-start warmup with runs two through five at zero seconds per the time minus p measurement.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/A5-latency.txt",
+          "title": "A5 latency runroc tee output of five timed runs",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/scripts/session-start.sh",
+          "title": "The hook script that produced the timings",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "On a fresh login shell the very first invocation may again be in the hundreds of milliseconds purely from zsh and bash startup; the hook itself is unchanged."
+    }
+  ],
+  "open_questions": [
+    "Should the orchestrator also add a SessionEnd hook that snapshots the active queue tick log to a session artifact for replay across days?"
+  ],
+  "methodology_notes": "Hook written with sentinel guard fork and disown shaped after the workshop pattern used by the reverted earlier hook but stripped of all blocking work. Latency measured five times with usr bin time minus p and saved to outcomes runrocs A5-latency txt. Outputs are committed alongside so the runroc is self-evidencing."
+}

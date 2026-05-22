@@ -1,0 +1,23 @@
+{
+  "title": "Tick 18: ship D5 citation staleness across spec sdk-python sdk-typescript and CLI test on the outcomes spec repo",
+  "as_of": "2026-05-22",
+  "question": "Does opensubagents outcomes pull 11 land the citation staleness downgrade in both reference SDKs document the rule in appendix-a-rubric md add three sdk-python tests and pass its own outcome gate?",
+  "success_criteria": [
+    "opensubagents outcomes pull 11 opened by the orchestrator with auto-merge armed",
+    "sdk-python verifier py adds STALE_CITATION_DAYS constant and applies the downgrade post-score with floor 1",
+    "sdk-typescript verifier ts ports the same algorithm one-to-one",
+    "specification appendix-a-rubric md documents the staleness downgrade under the citation_quality dimension",
+    "sdk-python test_verifier py has 3 new tests covering downgrade fresh and floor-at-1 and the full 27-test suite passes",
+    "dogfood pair outcomes citation-staleness scores at or above 3.5 against the new verifier"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "outcomes pull 11 opened with auto-merge armed",
+      "Python and TypeScript SDKs port the same staleness algorithm",
+      "appendix-a-rubric md documents the rule",
+      "3 new sdk-python tests pass plus the existing 24 tests"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

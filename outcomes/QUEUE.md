@@ -60,7 +60,7 @@
 | D2 | done | — | 20 deliberately-bad pairs at `evals/pairs/failing/*.json` covering each failure mode (a*=clarity, b*=citation_quality, c*=calibration, d*=coverage, e*=decision, f*=combined; all 20 score <3.5) | `evals/pairs/failing/MANIFEST.md` |
 | D3 | done | D1,D2 | `scripts/eval.sh` runs verifier across all 40 pairs; emits confusion matrix (TP=20 FN=0 TN=20 FP=0; accuracy=1.0) | `evals/results/2026-05-22.json` |
 | D4 | done | D3 | First ADR: `docs/adrs/0001-rubric-calibration.md` records FP/FN rates from D3 (Status: Accepted; defers floor ratchet to B5 pending calibration shoulder) | `docs/adrs/0001-rubric-calibration.md` |
-| D5 | pending | D4 | Citation-staleness check: downgrade citation_quality if `accessed` >180 days. Ports across spec, sdk-python, sdk-typescript, CLI test | PR URL on outcomes |
+| D5 | in_progress | D4 | Citation-staleness check: downgrade citation_quality if `accessed` >180 days. Ports across spec, sdk-python, sdk-typescript, CLI test — outcomes#11 opened with auto-merge armed, awaiting CI | https://github.com/opensubagents/outcomes/pull/11 |
 | D6 | pending | D4 | Optional `--check-urls` flag: HEAD-request each citation, downgrade on 4xx/5xx | PR URL on outcomes |
 
 ### Track E — Multi-agent review surface
@@ -121,6 +121,10 @@ The heartbeat appends one line per tick:
 - 2026-05-22T07:00Z tick-15 outcomes#3 still red, unchanged; outcomes-mcp#15 (tick 14) merged at 06:52:45Z
 - 2026-05-22T07:05Z tick-16 D4 pending → done (ADR 0001 rubric-calibration shipped at docs/adrs/0001-rubric-calibration.md; Status: Accepted; records perfect baseline; defers B5 ratchet until naturalistic shoulder pairs exist; recommends eval.sh as soft-gate CI) | next: B5 or D5 or E1
 - 2026-05-22T07:05Z tick-16 outcomes#3 still red, unchanged; outcomes-mcp#16 (tick 15) merged at 06:56:00Z
+- 2026-05-22T07:10Z tick-17 B5 pending → in_progress (single-line ratchet of scripts/eval.sh FLOOR 3.5→4.0; PR #18 opened with auto-merge NOT armed per "hold for human merge"; matrix at floor 4.0 still TP=20 FN=0 TN=20 FP=0; ADR 0001 referenced) | next: D5
+- 2026-05-22T07:10Z tick-17 outcomes#3 still red, unchanged; outcomes-mcp#17 (tick 16) merged at 07:00:38Z
+- 2026-05-22T07:15Z tick-18 D5 pending → in_progress (cross-repo opensubagents/outcomes#11 opened with auto-merge armed; staleness downgrade in sdk-python + sdk-typescript + spec doc; 3 new tests pass; full suite 27/27; will mark done next tick after merge) | next: D6 or E1 (lowest unblocked)
+- 2026-05-22T07:15Z tick-18 outcomes#3 still red, unchanged; outcomes-mcp#17 (tick 16) was last merged at 07:00:38Z; outcomes-mcp#18 (tick 17 B5 ratchet) remains intentionally held for operator
 
 
 

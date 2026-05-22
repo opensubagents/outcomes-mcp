@@ -1,0 +1,19 @@
+{
+  "title": "Tick 5: record B3 cross-repo submodule PR in outcomes-mcp QUEUE",
+  "as_of": "2026-05-22",
+  "question": "Does the outcomes-mcp QUEUE row for B3 now point at the live cross-repo PR opensubagents outcomes pull 10 with status in_progress until the merge completes?",
+  "success_criteria": [
+    "QUEUE row for B3 reflects in_progress status with the runroc field pointing at the cross-repo PR URL on opensubagents outcomes",
+    "tick log includes a line for tick 5 noting the cross-repo PR opensubagents outcomes pull 10 was opened with auto-merge armed",
+    "the parallel outcomes repo PR carries its own outcome and report pair scoring above the floor verified locally before push"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "QUEUE row B3 updated to in_progress with cross-repo PR URL as the runroc",
+      "tick log line for tick 5 records the cross-repo work and the auto-merge state",
+      "cross-repo PR on opensubagents outcomes carries its own dogfood pair scoring five point zero locally"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

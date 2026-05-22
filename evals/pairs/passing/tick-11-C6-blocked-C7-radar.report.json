@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend marking C6 as blocked because Cloudflare AI Gateway is documented as an LLM-provider proxy not an arbitrary HTTP gateway and the outcomes-mcp Worker has no LLM provider call to route through it so calling C6 done would require inventing a new outcome which the operating rules forbid. The tradeoff against picking a substitute product like Cloudflare Access is that the operator owns the naming decision and the runroc lists alternatives. C7 is recorded as done by capturing a Radar baseline for opensubagents org bucket greater than 200000 and subagentmcp com rank null bucket null on Radar date 2026-05-18 which gives a future tick a concrete before snapshot to diff against.",
+  "claims": [
+    {
+      "statement": "Cloudflare AI Gateway is documented as a proxy in front of LLM provider endpoints not arbitrary worker URLs because the use-cases ai page states AI Gateway does not require a domain added to Cloudflare and you can place it in front of any existing AI provider OpenAI Anthropic and others by updating your API endpoint to route through AI Gateway.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://developers.cloudflare.com/use-cases/ai/",
+          "title": "Cloudflare use-cases ai page documents AI Gateway as a per-provider API rewrite",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://developers.cloudflare.com/ai-gateway/usage/providers/",
+          "title": "Cloudflare AI Gateway providers list enumerates 15 LLM and inference providers but does not include generic HTTP MCP endpoints",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "If the spec adds an LLM-backed verifier in the future the AI Gateway contract would fit and C6 could be revived; this is recorded in the runroc as a future option not a present-day fix."
+    },
+    {
+      "statement": "C6 was flipped pending to blocked rather than silently substituted with Workers Logs or Cloudflare Access because the queue row literally names AI Gateway and the operating rule never invent new outcomes forbids the heartbeat from picking a different product on its own.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C6-gateway.json",
+          "title": "C6 runroc records the misfit explanation alternatives considered and the explicit blocked decision",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "QUEUE md row C6 flipped pending to blocked with the runroc path",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The runroc lists three alternatives the operator can choose from on the next operator-present tick; the blocked status is reversible."
+    },
+    {
+      "statement": "Radar baseline for opensubagents org returned rank null bucket greater than 200000 and Radar baseline for subagentmcp com returned rank null bucket null both on Radar date 2026-05-18 which establishes the zero-traffic before snapshot for future diff queries.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C7-radar.json",
+          "title": "C7 runroc captures both Radar queries and responses with the Radar reference date",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://developers.cloudflare.com/radar/investigate/domain-ranks/",
+          "title": "Cloudflare Radar domain ranks reference describes the bucket and null rank semantics",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Radar updates daily; the next tick that re-runs C7 should use the same domain queries and compare against this baseline rather than treating Radar as a real-time API."
+    }
+  ],
+  "open_questions": [
+    "Should the operator update the C6 queue row to point at Cloudflare Access plus Workers Logs and reactivate it or leave it blocked until an LLM-backed verifier exists?"
+  ],
+  "methodology_notes": "Searched Cloudflare docs via the docs MCP to confirm the AI Gateway contract; queried Radar via the get_domain_rank_details MCP for both opensubagents org and subagentmcp com on the default Radar date. Both runrocs cite the exact tool used and the unchanged query responses."
+}

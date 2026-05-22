@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend bundling the B3 done-flip with the B4 probe script ship in a single tick because both are paper-trail and tooling work that compose cleanly. The tradeoff is that running the probe live this tick would dirty the working branch the script itself uses for the drill so the runroc cites prior session probe evidence and the script is shipped runnable for future re-validation. The cross-repo PR opensubagents outcomes pull 10 merged at 06 06 14 Z landing the submodule on outcomes spec repo main. The probe script implements three drill modes below-floor orphan and empty each opening a draft PR asserting the gate concluded FAILURE then closing the PR.",
+  "claims": [
+    {
+      "statement": "QUEUE row B3 flipped to done because opensubagents outcomes pull 10 merged at 06 06 14 Z landing the submodule on outcomes spec repo main with mergedAt confirmed via gh pr view.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes/pull/10",
+          "title": "outcomes pull 10 merged at 06 06 14 Z lands the submodule",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "outcomes-mcp QUEUE md B3 row updated to done with the cross-repo PR URL preserved as the runroc",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Future ticks may want to bump the submodule pin to follow outcomes-mcp main as new ticks land but that is a routine maintenance task not a B3 revival."
+    },
+    {
+      "statement": "scripts probe sh implements three subcommands below-floor orphan empty each opening a draft PR asserting gate red then closing the PR and deleting the branch unless minus minus keep is passed.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/scripts/probe.sh",
+          "title": "probe sh source with the three subcommands and the cleanup trap",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/.github/workflows/outcome-gate.yml",
+          "title": "outcome-gate workflow that the probe asserts a FAILURE conclusion from",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The script does git checkout main and git checkout minus b internally so it is not safe to run from inside another branch that has uncommitted edits; live re-run will happen on a clean main in a future tick."
+    },
+    {
+      "statement": "runroc outcomes runrocs B4 probe log records the prior session probe evidence and references the runnable script for future re-validation citing PR 7 empty PR 8 orphan and PR 9 below-floor on opensubagents outcomes all closed and gate red.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/B4-probe.log",
+          "title": "B4 runroc with the three drill conclusions from prior session probes",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes/pulls?q=is%3Apr+probe+is%3Aclosed",
+          "title": "Closed probe PRs on outcomes spec repo demonstrating the drill outcomes",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The prior session probes ran against opensubagents outcomes; the new probe sh targets opensubagents outcomes-mcp by default because that is where B4 lives but minus minus repo can target either."
+    }
+  ],
+  "open_questions": [
+    "Should the orchestrator also add a scheduled cron drill that runs scripts probe sh once a week against both repos and posts the runroc to a status channel?"
+  ],
+  "methodology_notes": "probe sh authored with set minus euo pipefail trap-based cleanup and a polling loop with 90 second deadline. Runroc captures prior session probe evidence in plain text. Future ticks will re-validate live."
+}

@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend marking C3 as blocked rather than advancing it because the apex zone opensubagents.org is not present in the operator's Cloudflare account and the orchestrator rule never invent new outcomes forbids the heartbeat from silently substituting a different domain. The tradeoff against guessing a substitute zone is that the operator owns the naming decision and the runroc lists candidate substitute zones already in inventory so the next operator-present tick can update the queue. C4 ships a 32-byte hex MCP_BEARER_TOKEN secret on outcomes-mcp redeployed at version 89b17bef and four curl probes prove healthz public no-auth at mcp returns 401 valid-bearer returns the initialize event and a wrong bearer returns 401.",
+  "claims": [
+    {
+      "statement": "QUEUE row C3 is flipped to blocked because zones_list filtered by name opensubagents org returned count zero against account e6294e3ea89f8207af387d459824aaae and a wider listing confirmed the apex is not present.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C3-dns.txt",
+          "title": "C3 runroc records the missing apex and the candidate substitute zones",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "QUEUE md C3 row updated to blocked with the runroc path",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "If the operator registers opensubagents.org or accepts a substitute the queue row should be flipped back to pending and the C3 runroc supersedes accordingly."
+    },
+    {
+      "statement": "wrangler secret put uploaded a 32-byte hex MCP_BEARER_TOKEN to outcomes-mcp and wrangler deploy redeployed the worker at version 89b17bef-77a8-41f1-b124-4e3f649e6f95 with the new auth gate enforcing Bearer on the mcp path while keeping healthz public.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/src/index.ts",
+          "title": "src index ts adds the Authorization Bearer check on the mcp path and leaves healthz and root public",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C4-auth.txt",
+          "title": "C4 runroc captures the wrangler version id and the four curl probe outcomes",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The token is held in a wrangler secret on the worker; the local copy at slash tmp outcomes-mcp-bearer-token-tick9 txt is the operator's only out-of-band copy and should be rotated or deleted after the operator has filed it in a password manager."
+    },
+    {
+      "statement": "the four curl probes establish the matrix healthz returns HTTP 200 with no auth header in 253ms a POST to mcp without an Authorization header returns HTTP 401 with body unauthorized in 98ms a POST with the correct Bearer returns HTTP 200 and a streamable HTTP initialize event in 164ms and a POST with a wrong Bearer returns HTTP 401 in 257ms.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C4-auth.txt",
+          "title": "C4 runroc records all four probes with HTTP codes and timings",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://developers.cloudflare.com/workers/configuration/secrets/",
+          "title": "Cloudflare Workers secrets documentation that backs the wrangler secret put behavior",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The auth gate is intentionally scoped to the mcp path so probes and operator dashboards can continue to hit healthz unauthenticated; if the operator wants healthz behind auth as well that is a follow-up not a C4 revival."
+    }
+  ],
+  "open_questions": [
+    "Should the bearer-token check upgrade to constant-time comparison via a Web Crypto subtle equals primitive or is the current header equality acceptable given the token entropy?"
+  ],
+  "methodology_notes": "Token generated via openssl rand hex 32; uploaded via wrangler secret put with the token piped on stdin so it does not appear in shell history; wrangler deploy redeployed and the four probes ran sequentially against the live workers dev URL with curl write-out timing format."
+}

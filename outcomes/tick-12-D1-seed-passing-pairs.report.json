@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend seeding evals pairs passing this tick with the 15 real outcome+report pairs already merged through the outcome-gate across opensubagents outcomes-mcp and opensubagents outcomes spec repo rather than synthesizing fixture pairs because real merged pairs better reflect the production distribution that D3 will run a confusion matrix over. The tradeoff is that D1 lands at 15 not 20 this tick so the row stays in_progress and a future tick adds the remaining 5 from cross-org enterprise PRs which is consistent with the operating rule that says break a too-big step across multiple ticks. All 15 pairs were verified at or above the canonical floor of 3.5 against the python HeuristicVerifier and a MANIFEST md enumerates them and lists candidate sources for the remaining 5.",
+  "claims": [
+    {
+      "statement": "13 outcome+report pairs from opensubagents outcomes-mcp covering the bootstrap plus tick 1 through tick 11 plus the orchestrator-bootstrap pair were copied into evals pairs passing without modification because the originals are the merged-PR artifacts and rewriting them would defeat the purpose of using real production fixtures.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/tree/main/evals/pairs/passing",
+          "title": "evals pairs passing directory after the seed lists 30 files representing 15 pairs",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/evals/pairs/passing/MANIFEST.md",
+          "title": "MANIFEST md enumerates the 13 outcomes-mcp pairs and the 2 outcomes spec repo pairs",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "All 13 outcomes-mcp pairs were authored by the heartbeat orchestrator itself so they share a stylistic profile; the 2 spec repo pairs and the future 5 cross-org pairs bring stylistic diversity which is important for D3's calibration usefulness."
+    },
+    {
+      "statement": "2 additional pairs spec-outcome-gate and spec-mcp-server-submodule were copied from opensubagents outcomes spec repo into evals pairs passing under spec- prefixed file names so the slug namespace does not collide with the outcomes-mcp pairs.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes/blob/main/outcomes/outcome-gate.outcome.json",
+          "title": "Source pair for spec-outcome-gate from the outcomes spec repo",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes/blob/main/outcomes/mcp-server-submodule.outcome.json",
+          "title": "Source pair for spec-mcp-server-submodule from the outcomes spec repo",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The spec- prefix is a fixture-only convention; the original files in outcomes spec repo are unchanged and remain the canonical pairs for that repo's outcome-gate."
+    },
+    {
+      "statement": "all 15 seeded pairs verified at or above the canonical floor of 3.5 via a loop that called the python HeuristicVerifier once per pair and counted failures with zero failures across 15 pairs which proves the seed set is exclusively passing fixtures suitable for D3 to use as the positive class.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/evals/pairs/passing/MANIFEST.md",
+          "title": "MANIFEST md records last verified 2026-05-22 with 15 of 15 pairs passing",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes/blob/main/sdk-python/open_outcome/verifier.py",
+          "title": "Reference python HeuristicVerifier that scored each pair",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The HeuristicVerifier is deterministic but if D3 later swaps in an LLM-backed verifier the same 15 pairs will need to be re-scored against the new verifier and pairs that drift below 3.5 should be moved out of the passing set or annotated."
+    }
+  ],
+  "open_questions": [
+    "Should the remaining 5 pairs come from operational PRs across subagentcowork and subagentapps to maximize stylistic diversity or from a single canonical repo for traceability?"
+  ],
+  "methodology_notes": "Copied the 13 outcomes-mcp pairs and the 2 outcomes spec repo pairs into evals pairs passing then ran a shell loop that called python -m open_outcome.cli verify on each pair counting failures. MANIFEST md authored to enumerate the inventory and the gaps."
+}

@@ -1,0 +1,18 @@
+{
+  "title": "Drop research-engineering bootstrap from outcomes repo",
+  "as_of": "2026-05-22",
+  "question": "Does opensubagents outcomes pull 2 remove the research-engineering bootstrap and audit the Claude Code OTel research artifact without breaking the spec or SDK builds?",
+  "success_criteria": [
+    "research-engineering bootstrap files removed from the outcomes repo tree",
+    "Claude Code OTel research audit recorded in the PR description",
+    "spec and SDK builds remain green after the removal"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "research-engineering scaffold removed",
+      "OTel audit captured",
+      "CI green after removal"
+    ]
+  }
+}

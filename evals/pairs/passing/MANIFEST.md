@@ -5,9 +5,9 @@
 > (canonical floor) and represents a merged change. The set drives D3's
 > confusion matrix.
 
-## Inventory (15 of 20 — D1 in_progress)
+## Inventory (20 of 20 — D1 complete)
 
-Sourced from `opensubagents/outcomes-mcp` (this repo, real merged tick PRs #1–#12):
+Sourced from `opensubagents/outcomes-mcp` (this repo, real merged PRs):
 
 1. `bootstrap` — outcomes-mcp Codemode MCP server bootstrap
 2. `orchestrator-bootstrap` — heartbeat orchestrator bootstrap
@@ -22,23 +22,16 @@ Sourced from `opensubagents/outcomes-mcp` (this repo, real merged tick PRs #1–
 11. `tick-9-C3-blocked-C4-auth` — bearer-token auth on `/mcp`
 12. `tick-10-C5-observability` — Workers Observability MCP query
 13. `tick-11-C6-blocked-C7-radar` — AI Gateway misfit + Radar baseline
+14. `outcomes-mcp-tick-12-d1-seed` — D1 seed fixture (outcomes-mcp#13)
+15. `outcomes-mcp-tick-13-d2-seed` — D2 seed fixture (outcomes-mcp#14)
 
 Sourced from `opensubagents/outcomes` (the spec repo, real merged PRs):
 
-14. `spec-outcome-gate` — outcome-gate CI workflow (outcomes#6)
-15. `spec-mcp-server-submodule` — submodule pointer + docs (outcomes#10)
-
-## Pending (5 more to reach the D1 target of 20)
-
-Future D1 ticks should source from:
-- Operational PRs across the enterprise (subagentcowork, subagentapps,
-  subagentceo) that have natural outcome-shaped questions and clear
-  primary citations. Candidates include any PR that resolved a concrete
-  bug with a stack trace, any PR that adopted a new tool with a verifier
-  run, or any PR that backed out a previous change.
-- Cross-org work that the operator has already validated (e.g. the
-  Astral / uv refactor manifest in opensubagents, the agent-sdk-credit
-  decision in subagentmcp).
+16. `spec-bootstrap-v010` — v0.1.0 spec bootstrap (outcomes#1)
+17. `spec-drop-research-engineering` — drop bootstrap scaffold (outcomes#2)
+18. `spec-revert-session-hook` — revert blocking SessionStart hook (outcomes#5)
+19. `spec-outcome-gate` — outcome-gate CI workflow (outcomes#6)
+20. `spec-mcp-server-submodule` — submodule pointer + docs (outcomes#10)
 
 ## Verification
 
@@ -51,4 +44,4 @@ for o in evals/pairs/passing/*.outcome.json; do
 done
 ```
 
-Last verified: 2026-05-22 — 15/15 pairs pass (overall ≥ 3.5).
+Last verified: 2026-05-22 — 20/20 pairs pass (overall ≥ 3.5).

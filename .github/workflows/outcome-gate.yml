@@ -1,0 +1,106 @@
+name: outcome-gate
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: outcome-gate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  outcome-gate:
+    name: outcome-gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: opensubagents/outcomes
+          path: _outcomes-spec
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Open Outcome Python SDK from spec repo
+        working-directory: _outcomes-spec/sdk-python
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+      - name: Verify outcome pairs introduced by this PR
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "$BASE_REF"
+
+          mapfile -t changed < <(
+            git diff --name-only --diff-filter=AM "origin/$BASE_REF...HEAD" -- \
+              'outcomes/*.outcome.json' 'outcomes/*.report.json'
+          )
+
+          declare -A outcome_slugs=()
+          declare -A report_slugs=()
+          for path in "${changed[@]}"; do
+            base=$(basename "$path")
+            case "$base" in
+              *.outcome.json) slug=${base%.outcome.json}; outcome_slugs[$slug]=$path ;;
+              *.report.json)  slug=${base%.report.json};  report_slugs[$slug]=$path  ;;
+              *) echo "outcome-gate: unexpected path $path" >&2; exit 1 ;;
+            esac
+          done
+
+          if [ ${#outcome_slugs[@]} -eq 0 ] && [ ${#report_slugs[@]} -eq 0 ]; then
+            echo "::error::outcome-gate: PR introduces no outcome+report pair. Every PR must add outcomes/<slug>.outcome.json and outcomes/<slug>.report.json."
+            exit 1
+          fi
+
+          for slug in "${!outcome_slugs[@]}"; do
+            if [ -z "${report_slugs[$slug]:-}" ]; then
+              echo "::error::outcome-gate: orphan outcome — slug '$slug' has outcomes/$slug.outcome.json but no matching outcomes/$slug.report.json."
+              exit 1
+            fi
+          done
+          for slug in "${!report_slugs[@]}"; do
+            if [ -z "${outcome_slugs[$slug]:-}" ]; then
+              echo "::error::outcome-gate: orphan report — slug '$slug' has outcomes/$slug.report.json but no matching outcomes/$slug.outcome.json."
+              exit 1
+            fi
+          done
+
+          for slug in "${!outcome_slugs[@]}"; do
+            if git cat-file -e "origin/$BASE_REF:outcomes/$slug.outcome.json" 2>/dev/null; then
+              echo "::error::outcome-gate: slug collision — outcomes/$slug.outcome.json already exists on $BASE_REF. Outcomes are append-only; pick a new slug."
+              exit 1
+            fi
+          done
+
+          {
+            echo "## outcome-gate"
+            echo
+            echo "| slug | overall | floor | status | dimensions |"
+            echo "| --- | --- | --- | --- | --- |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          fail=0
+          for slug in $(printf '%s\n' "${!outcome_slugs[@]}" | sort); do
+            outcome_path="${outcome_slugs[$slug]}"
+            report_path="${report_slugs[$slug]}"
+            echo "::group::verify $slug"
+            if python -m open_outcome.cli verify \
+                "$outcome_path" "$report_path" \
+                --floor 3.5 \
+                --summary-md "$GITHUB_STEP_SUMMARY"; then
+              echo "::endgroup::"
+            else
+              rc=$?
+              echo "::endgroup::"
+              echo "::error::outcome-gate: $slug failed (exit $rc)"
+              fail=1
+            fi
+          done
+
+          exit $fail

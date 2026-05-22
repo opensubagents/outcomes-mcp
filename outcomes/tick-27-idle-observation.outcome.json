@@ -1,0 +1,21 @@
+{
+  "title": "Tick 27: log the IDLE hold-pattern observation now that all 31 outcomes are either done blocked or held for human merge",
+  "as_of": "2026-05-22",
+  "question": "Is the orchestrator in a verifiable IDLE state in which every QUEUE row is either done blocked on an operator decision or in_progress awaiting human merge such that there is no atomic step the heartbeat can productively take this tick without operator input?",
+  "success_criteria": [
+    "QUEUE tick log appends a tick-27 line recording the IDLE observation and naming the specific blockers B5 held for human merge C3 blocked on missing apex zone C6 blocked on AI Gateway misfit",
+    "PR opensubagents outcomes-mcp 18 the B5 ratchet is confirmed still open with all 5 CI checks green and auto-merge intentionally null per the hold-for-human-merge rule",
+    "the heartbeat does NOT call CronDelete or skip the next tick fire because the operator-only stop rule overrides the loop-prompt's stop-on-idle condition",
+    "the tick produces a runroc that future operators can read to confirm the heartbeat understood the hold-pattern state rather than silently degrading"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "QUEUE accurately records 25 done 1 held 2 blocked 0 pending unblocked",
+      "B5 PR is mergeable with green checks awaiting operator action",
+      "operator-only stop rule honored by the heartbeat",
+      "IDLE state recorded as a tick artifact not a no-op"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

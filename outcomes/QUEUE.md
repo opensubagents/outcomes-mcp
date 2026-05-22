@@ -56,7 +56,7 @@
 
 | id | status | depends_on | title | runroc_path |
 |---|---|---|---|---|
-| D1 | in_progress | — | 20 high-quality outcome+report pairs at `evals/pairs/passing/*.json` (sourced from real PRs across enterprise) — 15/20 seeded from outcomes-mcp ticks + outcomes spec repo; 5 more needed from cross-org enterprise PRs | `evals/pairs/passing/MANIFEST.md` |
+| D1 | done | — | 20 high-quality outcome+report pairs at `evals/pairs/passing/*.json` (sourced from real PRs across enterprise) — 20/20 from outcomes-mcp ticks + outcomes spec PRs #1, #2, #5, #6, #10 | `evals/pairs/passing/MANIFEST.md` |
 | D2 | done | — | 20 deliberately-bad pairs at `evals/pairs/failing/*.json` covering each failure mode (a*=clarity, b*=citation_quality, c*=calibration, d*=coverage, e*=decision, f*=combined; all 20 score <3.5) | `evals/pairs/failing/MANIFEST.md` |
 | D3 | pending | D1,D2 | `scripts/eval.sh` runs verifier across all 40 pairs; emits confusion matrix | `evals/results/{date}.json` |
 | D4 | pending | D3 | First ADR: `docs/adrs/0001-rubric-calibration.md` records FP/FN rates from D3 | `docs/adrs/0001-rubric-calibration.md` |
@@ -115,6 +115,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T06:45Z tick-12 outcomes#3 still red, unchanged; outcomes-mcp#12 (tick 11) merged at 06:37:26Z
 - 2026-05-22T06:50Z tick-13 D2 pending → done (20 failing pairs seeded covering all 5 rubric dimensions + combined; all 20 score <3.5, range 1.4-3.4) | next: D3 (eval.sh + confusion matrix) — D1+D2 now both satisfy D3 deps; D1 still in_progress at 15/20 but D3 can use the partial set
 - 2026-05-22T06:50Z tick-13 outcomes#3 still red, unchanged; outcomes-mcp#13 (tick 12) merged at 06:42:33Z
+- 2026-05-22T06:55Z tick-14 D1 in_progress → done (5 final pairs added: spec-bootstrap-v010 [4.4], spec-drop-research-engineering [4.8], spec-revert-session-hook [5.0], outcomes-mcp-tick-12-d1-seed [5.0], outcomes-mcp-tick-13-d2-seed [4.6]; total 20/20 ≥3.5) | next: D3 (eval.sh + confusion matrix; D1+D2 deps now strictly done)
+- 2026-05-22T06:55Z tick-14 outcomes#3 still red, unchanged; outcomes-mcp#14 (tick 13) merged at 06:48:22Z
 
 
 

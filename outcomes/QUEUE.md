@@ -141,6 +141,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T07:50Z tick-25 outcomes#3 still red, unchanged; outcomes-mcp#25 (tick 24) merged at 07:40:49Z; outcomes-mcp#18 (B5) still held
 - 2026-05-22T07:55Z tick-26 F4 pending → done (RESUME.md shipped at repo root: 5 priority-ordered files + state-at-a-glance for all 6 tracks + live infra + next-action recommendation that acknowledges the current hold-pattern state). **Track F now COMPLETE (F1/F2/F3/F4 all done)** | next: ONLY B5 remains, held for human merge — orchestrator in hold pattern
 - 2026-05-22T07:55Z tick-26 outcomes#3 still red, unchanged; outcomes-mcp#26 (tick 25) merged at 07:46:16Z; outcomes-mcp#18 (B5) still held. **31-outcome roadmap: 25 done · 4 blocked (C3/C6/outcomes#3) or held (B5) · 0 pending unblocked**
+- 2026-05-22T08:00Z tick-27 IDLE — no atomic step productively available; PR #18 (B5) confirmed open with all 5 CI checks green and auto-merge intentionally null; operator-only stop rule honored (loop NOT stopped). Heartbeat continues firing every 5 minutes per operator rule.
+- 2026-05-22T08:00Z tick-27 outcomes#3 still red, unchanged; outcomes-mcp#27 (tick 26) merged at 07:50:05Z; outcomes-mcp#18 (B5) **mergeable, awaiting operator merge decision**
 
 
 

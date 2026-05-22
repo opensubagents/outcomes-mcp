@@ -1,0 +1,19 @@
+{
+  "title": "Tick 2: codify three review subagents in .claude/agents (queue item A4)",
+  "as_of": "2026-05-22",
+  "question": "Does the outcomes-mcp repo now ship three orchestrator subagents (outcome-reviewer, ci-firefighter, rubric-tightener) with scoped responsibilities and hard invariants, ready for the heartbeat to dispatch in parallel?",
+  "success_criteria": [
+    "outcome-reviewer subagent reads a PR scores the outcome report pair against HeuristicVerifier and posts one structured review comment",
+    "ci-firefighter subagent triages a red check classifies as flake or outcome-gate or typecheck or unknown and fixes mechanical breakage in-place",
+    "rubric-tightener subagent reads an eval results file picks the worst dimension and proposes one port-stable verifier edit via PR on opensubagents outcomes"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "outcome-reviewer scores a PR pair and posts a structured review comment",
+      "ci-firefighter triages a red check and fixes mechanical breakage or escalates",
+      "rubric-tightener proposes one port-stable verifier edit per eval results file"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

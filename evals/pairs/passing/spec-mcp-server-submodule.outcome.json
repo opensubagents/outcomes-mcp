@@ -1,0 +1,19 @@
+{
+  "title": "Vendor the reference MCP server as a git submodule at mcp-server",
+  "as_of": "2026-05-22",
+  "question": "Does this repo now point at opensubagents outcomes-mcp via a git submodule pinned at a specific commit at the path mcp-server with a docs page explaining the trust boundary and update procedure?",
+  "success_criteria": [
+    "git submodule pointer at path mcp-server resolves to opensubagents outcomes-mcp at a pinned SHA",
+    "docs mcp-server md explains the trust boundary and the update procedure with the submodule update remote command",
+    "the submodule contents are not evaluated by this repo outcome-gate only the pointer SHA is committed"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "git submodule pointer at mcp-server pinned to a specific SHA of outcomes-mcp main",
+      "docs mcp-server md documents the trust boundary and the bump procedure",
+      "submodule pointer not contents is what this repo audits via outcome-gate"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

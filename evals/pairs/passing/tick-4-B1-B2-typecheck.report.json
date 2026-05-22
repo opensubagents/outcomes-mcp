@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend closing B1 and B2 together because the typecheck workflow has been green on six consecutive runs and the branch-protection-mirror in B2 is the exact same configuration A1 already shipped. The tradeoff in closing B2 as subsumed rather than running it independently is one fewer paper-trail entry but we link to A1 runroc directly so the audit chain stays intact. The runroc at outcomes runrocs B1 typecheck runs json shows the last six typecheck workflow runs all conclusion success spanning pull_request events for ticks 1 through 3 and the corresponding push to main events.",
+  "claims": [
+    {
+      "statement": "runroc B1 typecheck runs json captures the most recent six typecheck workflow runs all showing conclusion success because the gh api workflows typecheck yml runs query returned the top six entries and each one has conclusion equal to success and status equal to completed.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/B1-typecheck-runs.json",
+          "title": "B1 typecheck runs runroc with six entries",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/.github/workflows/typecheck.yml",
+          "title": "typecheck workflow definition that produced those runs",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The six runs span both pull_request triggers (PR #1 to PR #4) and push to main events; the workflow itself is identical across all runs."
+    },
+    {
+      "statement": "B2 branch protection mirror is closed as subsumed because A1 already applied required_status_checks containing outcome-gate and typecheck plus enforce_admins and required_linear_history on outcomes-mcp main and the A1 protection runroc captures the full response.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/A1-protection.json",
+          "title": "A1 protection runroc shows the exact configuration B2 would have applied",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "QUEUE.md B2 row notes the subsumption explicitly",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "If a future track needs protection on a different repo (e.g. outcomes spec repo or outcomes-mcp deploy branch) that would be a new outcome not a B2 revival."
+    },
+    {
+      "statement": "the typecheck workflow file exists at github workflows typecheck yml and runs on pull request and push to main because the workflow definition file shipped in the bootstrap PR and the runroc shows triggers fired on both event types.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/.github/workflows/typecheck.yml",
+          "title": "typecheck workflow yml with on pull_request branches main and on push branches main",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/B1-typecheck-runs.json",
+          "title": "B1 runroc head_branch field shows both main and claude tick branches",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The workflow runs tsc minus noEmit only; it does not run vitest because no tests exist yet. Tests are a future outcome under track D."
+    }
+  ],
+  "open_questions": [
+    "Should the orchestrator also save a periodic snapshot of typecheck runs every N ticks so the runroc becomes a rolling audit trail rather than a one-shot capture?"
+  ],
+  "methodology_notes": "B1 runroc captured via gh api workflows typecheck yml runs query returning the top six entries. B2 closed by editing the QUEUE.md row to status done and pointing the runroc at A1 protection json which is the upstream evidence. No code changes; this is a paper-trail tick."
+}

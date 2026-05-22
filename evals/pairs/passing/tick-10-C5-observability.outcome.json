@@ -1,0 +1,19 @@
+{
+  "title": "Tick 10: Cloudflare Observability MCP query confirms outcomes-mcp received traffic on the live URL",
+  "as_of": "2026-05-22",
+  "question": "Does the Cloudflare Workers Observability MCP return non-zero request counts grouped by trigger for the outcomes-mcp service confirming the deployed worker received traffic in the last 30 minutes?",
+  "success_criteria": [
+    "query_worker_observability with filter dollar metadata service eq outcomes-mcp returns at least one trigger row with a non-zero request count",
+    "the result includes both GET healthz and POST mcp triggers proving the gate paths the orchestrator exercises are visible in observability",
+    "runroc outcomes runrocs C5-obs json captures the query the aggregation result the interpretation and the evidence window"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "Cloudflare Observability MCP returned five trigger rows for outcomes-mcp",
+      "GET healthz and POST mcp triggers are both visible in the aggregation",
+      "16 requests total in the 30 minute window with 59 series timestamps returned"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

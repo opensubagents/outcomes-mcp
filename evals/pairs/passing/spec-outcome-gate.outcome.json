@@ -1,0 +1,19 @@
+{
+  "title": "Adopt outcome-gated CI for opensubagents/outcomes",
+  "as_of": "2026-05-21",
+  "question": "Does every pull request to opensubagents/outcomes declare a machine-checkable outcome and ship enough evidence to score above the 3.5 floor under HeuristicVerifier?",
+  "success_criteria": [
+    "workflow runs HeuristicVerifier on every pull_request event",
+    "merge is blocked when verdict overall is below 3.5",
+    "branch protection requires the outcome-gate check on main"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "gate every pull request via deterministic heuristic verifier",
+      "block merges below the 3.5 overall floor",
+      "protect main with required status checks and enforce admins"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

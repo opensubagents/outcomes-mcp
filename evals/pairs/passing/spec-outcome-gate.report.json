@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend adopting an outcome-gated CI workflow that runs HeuristicVerifier on every pull request against opensubagents/outcomes. The gate blocks merge when verdict overall is below 3.5, and main is protected so the check is required for every merge. The tradeoff is that even small PRs must ship a minimal outcome and report pair, which we accept in exchange for a uniform, auditable merge signal.",
+  "claims": [
+    {
+      "statement": "The .github/workflows/outcome-gate.yml workflow runs on every pull_request event and invokes HeuristicVerifier via the open-outcome CLI on each changed outcomes/<slug>.outcome.json and outcomes/<slug>.report.json pair.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes/blob/main/.github/workflows/outcome-gate.yml",
+          "title": "outcome-gate.yml — workflow added in this PR",
+          "accessed": "2026-05-21",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes/blob/main/sdk-python/open_outcome/cli.py",
+          "title": "open_outcome.cli — verifier CLI added in this PR",
+          "accessed": "2026-05-21",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Gate runs only on PR events; main-branch direct pushes are blocked separately by branch protection."
+    },
+    {
+      "statement": "Merge is blocked when verdict overall is below 3.5 because the CLI exits non-zero, which fails the workflow and prevents the required status check from passing.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes/blob/main/sdk-python/open_outcome/cli.py",
+          "title": "open_outcome.cli — _verify returns exit code 1 below the floor",
+          "accessed": "2026-05-21",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes/blob/main/specification/appendix-a-rubric.md",
+          "title": "Appendix A — Reference rubric (five dimensions, 1-5)",
+          "accessed": "2026-05-21",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The 3.5 floor is configurable via --floor; the gate intentionally pins it at 3.5 in the workflow to avoid per-PR negotiation."
+    },
+    {
+      "statement": "Branch protection on main requires the outcome-gate check (along with the existing python-sdk and typescript-sdk tests) and enforces admins so even the repo owner cannot bypass the gate.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://docs.github.com/en/rest/branches/branch-protection",
+          "title": "GitHub REST API — Branch protection",
+          "accessed": "2026-05-21",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes/blob/main/.github/CONTRIBUTING.md",
+          "title": "CONTRIBUTING.md — Outcome gate section added in this PR",
+          "accessed": "2026-05-21",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Protection is applied via a separate gh api PUT immediately after this PR merges, not inside the PR itself."
+    }
+  ],
+  "open_questions": [
+    "Should the floor ratchet from 3.5 to 4.0 once contributors have a habit of writing outcome+report pairs?"
+  ],
+  "methodology_notes": "Verified locally by running `python -m open_outcome.cli verify outcomes/outcome-gate.outcome.json outcomes/outcome-gate.report.json` against the HeuristicVerifier in sdk-python before pushing."
+}

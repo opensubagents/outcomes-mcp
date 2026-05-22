@@ -56,7 +56,7 @@
 
 | id | status | depends_on | title | runroc_path |
 |---|---|---|---|---|
-| D1 | pending | — | 20 high-quality outcome+report pairs at `evals/pairs/passing/*.json` (sourced from real PRs across enterprise) | `evals/pairs/passing/` |
+| D1 | in_progress | — | 20 high-quality outcome+report pairs at `evals/pairs/passing/*.json` (sourced from real PRs across enterprise) — 15/20 seeded from outcomes-mcp ticks + outcomes spec repo; 5 more needed from cross-org enterprise PRs | `evals/pairs/passing/MANIFEST.md` |
 | D2 | pending | — | 20 deliberately-bad pairs at `evals/pairs/failing/*.json` covering each failure mode | `evals/pairs/failing/` |
 | D3 | pending | D1,D2 | `scripts/eval.sh` runs verifier across all 40 pairs; emits confusion matrix | `evals/results/{date}.json` |
 | D4 | pending | D3 | First ADR: `docs/adrs/0001-rubric-calibration.md` records FP/FN rates from D3 | `docs/adrs/0001-rubric-calibration.md` |
@@ -111,6 +111,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T06:35Z tick-10 outcomes#3 still red, unchanged; outcomes-mcp#10 (tick 9) merged at 06:28:27Z
 - 2026-05-22T06:40Z tick-11 C6 pending → blocked (AI Gateway is LLM-provider-only per docs; outcomes-mcp has no upstream LLM; runroc lists alternatives) + C7 pending → done (Radar baseline: opensubagents.org bucket >200000, subagentmcp.com rank+bucket null) | next: D1 (Track D kicks off)
 - 2026-05-22T06:40Z tick-11 outcomes#3 still red, unchanged; outcomes-mcp#11 (tick 10) merged at 06:31:55Z; Track C summary: C1/C2/C4/C5/C7 done, C3/C6 blocked on operator decisions
+- 2026-05-22T06:45Z tick-12 D1 pending → in_progress (15/20 pairs seeded into evals/pairs/passing/ from outcomes-mcp ticks #1-12 + outcomes spec repo; all 15 verified ≥3.5; MANIFEST.md lists candidates for the remaining 5) | next: D2 (failing pairs) or continue D1 with cross-org sourcing
+- 2026-05-22T06:45Z tick-12 outcomes#3 still red, unchanged; outcomes-mcp#12 (tick 11) merged at 06:37:26Z
 
 
 

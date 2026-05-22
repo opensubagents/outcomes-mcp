@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend the branch protection now active on outcomes-mcp main because the PUT to the branches main protection endpoint returned a body with required_status_checks contexts equal to outcome-gate and typecheck. The tradeoff is that any future fix to a broken gate must temporarily flip enforce_admins to false then restore it which is documented as the break-glass procedure. The orchestrator can now rely on the gate being non-bypassable for every subsequent tick. The runroc file outcomes runrocs A1 protection json captures the full response body for audit.",
+  "claims": [
+    {
+      "statement": "branch protection PUT against outcomes-mcp main returned 200 with required_status_checks contexts containing outcome-gate and typecheck because the runroc body shows those two strings under required_status_checks contexts and checks lists.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/A1-protection.json",
+          "title": "A1 protection runroc captured from gh api PUT response",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://docs.github.com/en/rest/branches/branch-protection",
+          "title": "GitHub REST API branch protection reference",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The two required checks must run on every PR for the protection to be meaningful; both outcome-gate.yml and typecheck.yml are already on main per the earlier orchestrator-bootstrap PR."
+    },
+    {
+      "statement": "enforce_admins is enabled so org admins including alex-jadecli cannot bypass the gate because the runroc body shows enforce_admins enabled equals true.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/A1-protection.json",
+          "title": "A1 protection runroc enforce_admins enabled field",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "QUEUE.md operating rules forbid disabling the gate to bypass",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Break-glass procedure for fixing a broken gate is to PATCH enforce_admins to false then restore it; this is acceptable as a documented one-shot not a standing posture."
+    },
+    {
+      "statement": "required_linear_history is enabled so the merge log stays bisectable for future verdicts because the runroc body shows required_linear_history enabled equals true and the repo uses squash merges by repo settings.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/A1-protection.json",
+          "title": "A1 protection runroc required_linear_history enabled field",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-branches-in-your-repository/about-protected-branches",
+          "title": "GitHub linear-history docs",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Linear history forbids merge commits; this is fine for this repo because the canonical merge style is squash."
+    }
+  ],
+  "open_questions": [
+    "Should the orchestrator add a periodic drill outcome that attempts merge bypass and confirms enforce_admins still blocks it?"
+  ],
+  "methodology_notes": "Verified by inspecting outcomes runrocs A1 protection json after the PUT. The runroc file was committed alongside the queue update so the orchestrator memory of A1 being done has a tamper-evident on-disk artifact."
+}

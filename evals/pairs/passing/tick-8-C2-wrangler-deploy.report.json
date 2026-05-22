@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend treating outcomes-mcp as live on Cloudflare Workers as of 2026-05-22T06:20:45Z because wrangler deploy succeeded and the healthz probe returned HTTP 200 with body ok in 332ms from the live URL. The tradeoff against waiting to bundle deploy with a custom domain in one tick is that the workers dev subdomain is the simplest possible verification surface and gets the downstream Track C outcomes C3 through C6 unblocked immediately. The runroc outcomes runrocs C2-deploy txt records the wrangler upload total the version id the timed healthz probe and the root banner probe so a future tick can diff against this baseline.",
+  "claims": [
+    {
+      "statement": "wrangler deploy uploaded outcomes-mcp at 2144 KiB total gzipped to 384 KiB with version id 3b4d6ffa-b55c-4451-94c5-d834a7aa46a2 and bound env LOADER to the Worker Loader resource.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C2-deploy.txt",
+          "title": "C2 runroc captures wrangler deploy stdout with upload size version id and binding listing",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/wrangler.jsonc",
+          "title": "wrangler jsonc declares the worker_loaders binding and the compatibility flags that the deploy realized",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "wrangler 4.87.0 was used; the registry currently advertises 4.93.1 as the latest. Bumping wrangler is a routine maintenance follow-up not a C2 revival."
+    },
+    {
+      "statement": "curl against https outcomes-mcp alex-e62 workers dev healthz returned HTTP 200 with body ok in 332 milliseconds and the root path returned the Open Outcome MCP server banner.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C2-deploy.txt",
+          "title": "C2 runroc captures the timed curl probes for healthz and root",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/src/index.ts",
+          "title": "outcomes-mcp source defines the healthz handler returning text plain ok and the root banner",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The 332ms includes TLS handshake; subsequent requests amortize the handshake cost. The 107ms root probe in the same runroc demonstrates the warm latency."
+    },
+    {
+      "statement": "C2 unblocks the dependent Track C outcomes C3 custom domain C4 bearer-token auth C5 observability MCP query and C6 AI Gateway plus the Track F operator surfaces F2 vscode probe and F3 desktop probe because all of those depend_on C2 in the QUEUE.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "QUEUE md rows for C3 C4 C5 C6 F2 F3 list C2 as the depends_on",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://developers.cloudflare.com/workers/wrangler/commands/#deploy",
+          "title": "Cloudflare wrangler deploy reference describing the workers dev subdomain semantics",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "C7 Radar baseline does not depend on C2 and can run in parallel; this claim is about the C2-gated outcomes only."
+    }
+  ],
+  "open_questions": [
+    "Should the C2 runroc additionally exercise the MCP POST endpoint with an initialize call or is healthz plus root sufficient for the gate?"
+  ],
+  "methodology_notes": "wrangler deploy ran from the repo working tree against the active wrangler account; the deployed worker URL was returned by wrangler itself and used verbatim for the curl probes. The runroc captures the wrangler stdout the timed curl probes and the version id so a future tick can diff against this baseline."
+}

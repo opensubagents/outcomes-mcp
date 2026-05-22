@@ -70,11 +70,15 @@ Then ask Claude to score an outcome+report pair — Claude calls the `code` tool
 | `src/types.ts` | TS types vendored from `opensubagents/outcomes/sdk-typescript`. |
 | `src/verifier.ts` | Pure TS port of `HeuristicVerifier` (no zod runtime dep, no LLM, no network). |
 | `wrangler.jsonc` | `worker_loaders: [{binding: "LOADER"}]`, `nodejs_compat`. |
-| `outcomes/` | Self-evidencing outcome+report pairs scored by the upstream CI gate. |
+| `outcomes/` | Self-evidencing outcome+report pairs scored by the upstream CI gate (bootstrap + orchestrator-bootstrap + the split PR pair). |
 
 ## Conformance
 
-The vendored verifier is byte-equivalent to the upstream `sdk-typescript` `HeuristicVerifier` for the algorithm; the zod runtime schemas are intentionally omitted here (validation is moved to the MCP tool boundary via zod 4). When `opensubagents/open-outcome` publishes to npm, `src/types.ts` and `src/verifier.ts` will be replaced by the npm import.
+The vendored verifier is byte-equivalent to the upstream [`@opensubagents/outcomes-sdk`](https://www.npmjs.com/package/@opensubagents/outcomes-sdk) `HeuristicVerifier` for the algorithm; the zod runtime schemas are intentionally omitted here (validation is moved to the MCP tool boundary via zod 4). Once the SDK is published to npm (see [`opensubagents/outcomes-sdk-typescript`](https://github.com/opensubagents/outcomes-sdk-typescript)), `src/types.ts` and `src/verifier.ts` will be replaced by the npm import.
+
+## Split note
+
+This repo is the **public MCP server surface only**. The private operational substrate that runs the `/loop` heartbeat, the 31-outcome QUEUE.md, the rotation aliases, the eval matrix, and the per-tick `outcome.json + report.json` pairs lives in the private repo `subagentceo/outcomes-orchestrator`. Prior to 2026-05-22 those artifacts lived here; the split is documented in the orchestrator's `TOPOLOGY.md`.
 
 ## License
 

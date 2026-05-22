@@ -1,0 +1,86 @@
+{
+  "summary": "We recommend treating this PR as the cut-over moment for separating the public MCP server surface from the private operational substrate because the private repo subagentceo outcomes-orchestrator is already live with the full migrated content and TOPOLOGY md documents the naming axes that distinguish public products from operational workloads. The tradeoff against keeping the orchestrator content in the public repo is that the rotation aliases the per-tick artifacts and the 31-outcome queue are now hidden from any external reader of the spec ecosystem which is the desired outcome since those artifacts encode operational identity and a load-bearing 5-hour rotation. The outcome-gate workflow on this repo continues to score this PR via the python HeuristicVerifier so this is dogfooded against the same gate that the now-removed orchestrator outcomes were dogfooded against.",
+  "claims": [
+    {
+      "statement": "outcomes QUEUE md is git removed and outcomes tick- prefixed outcome and report pairs are also git removed because the operator directive splits the public MCP server surface from the private operational substrate and the queue model with its 31 frozen items only makes sense in the private repo where new outcomes can be admitted without violating the never-invent-new-outcomes constraint.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/pull/repo-split-orchestrator",
+          "title": "outcomes-mcp pull request repo-split-orchestrator on the claude/repo-split-orchestrator branch showing the removed QUEUE and tick-prefixed pairs",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/subagentceo/outcomes-orchestrator/blob/main/outcomes/QUEUE.md",
+          "title": "subagentceo outcomes-orchestrator outcomes QUEUE md the new home of the queue model",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The outcomes bootstrap json pair and the outcomes orchestrator-bootstrap json pair are intentionally kept because they document the gate of the MCP server itself and the historical admission of the orchestrator pattern; removing them would lose the audit trail of why the orchestrator was admitted in the first place."
+    },
+    {
+      "statement": "the outcomes runrocs directory and the evals directory are git removed and the claude loop-prompt md claude dispatch json claude agents subdirectory scripts eval sh and scripts dispatch-test sh are also git removed because each is operational state for the live heartbeat and the runrocs in particular contain per-tick build outputs that have no value as public consumable artifacts.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/subagentceo/outcomes-orchestrator/blob/main/.claude/loop-prompt.md",
+          "title": "the loop-prompt md now lives in the private repo so the cron heartbeat will re-read it from there after TKT-004 lands",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/subagentceo/outcomes-orchestrator/tree/main/scripts",
+          "title": "scripts subdirectory in the private repo containing eval sh and dispatch-test sh as the canonical locations",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The /loop cron 352508ff currently fires against the now-removed claude/loop-prompt md in this repo so this PR must be merged at the same operator turn as TKT-004 which switches the cron to read from the private repo path or the next heartbeat tick will error on a missing file."
+    },
+    {
+      "statement": "the outcomes bootstrap json pair and the outcomes orchestrator-bootstrap json pair remain in this repo because they document the gate of the MCP server itself and the historical admission of the orchestrator pattern which is a permanent audit-trail concern not an operational concern.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/claude/repo-split-orchestrator/outcomes/bootstrap.outcome.json",
+          "title": "outcomes bootstrap outcome json is preserved on the split branch documenting that the MCP server itself was admitted via outcome-gate",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/claude/repo-split-orchestrator/outcomes/orchestrator-bootstrap.outcome.json",
+          "title": "outcomes orchestrator-bootstrap outcome json is preserved on the split branch documenting the historical admission of the orchestrator pattern that this PR now splits out",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "These two bootstrap pairs are now the only outcome pairs in this repo besides this PR's own repo-split-orchestrator pair; the outcome-gate workflow's slug-collision check still passes because all three slugs are distinct."
+    },
+    {
+      "statement": "the README documents the split with a new Split note section that links to the private repo subagentceo outcomes-orchestrator and clarifies that the prior orchestrator artifacts lived here until 2026-05-22 because anyone reading the repo at HEAD needs to understand both the current scope and the historical context.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/claude/repo-split-orchestrator/README.md",
+          "title": "README md on the claude/repo-split-orchestrator branch with the new Split note section",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/subagentceo/outcomes-orchestrator/blob/main/TOPOLOGY.md",
+          "title": "TOPOLOGY md in the private repo documents the public-versus-operational axes that justify this split",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The Conformance section of the README was also updated to reference the now-canonical npm package opensubagents outcomes-sdk instead of the old in-repo path which depends on TKT-006 publishing the package to npm; that follow-up is tracked separately in the private repo ticket queue."
+    }
+  ],
+  "open_questions": [
+    "Should the outcome-gate workflow on opensubagents outcomes-mcp also switch to installing open-outcome from PyPI or git+https now that the SDK lives in the sibling repo or wait until that change is needed by a future PR?",
+    "Should the historical orchestrator-bootstrap outcome pair stay in this repo forever or move to the private repo once the private repo establishes its own bootstrap chain?"
+  ],
+  "methodology_notes": "Created branch claude/repo-split-orchestrator from main of opensubagents outcomes-mcp. Ran git rm of every orchestrator-specific path enumerated in the success criteria and verified the remaining tree contains only the MCP server source the bootstrap outcome pairs and the build configuration. Wrote the README Split note and confirmed the existing outcome-gate workflow continues to score outcome pairs without modification. Ran the python HeuristicVerifier against this PR's outcome+report pair locally and got overall above 3.5."
+}

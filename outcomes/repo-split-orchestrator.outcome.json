@@ -1,0 +1,29 @@
+{
+  "title": "Strip private orchestrator content from opensubagents outcomes-mcp leaving only the public MCP server surface",
+  "as_of": "2026-05-22",
+  "question": "Does opensubagents outcomes-mcp drop the QUEUE.md the /loop heartbeat the per-tick outcome+report pairs the runrocs the eval matrix the orchestrator subagent definitions and the statusline-usage so that this repo is reduced to the public-facing MCP server surface while the private orchestration substrate continues operating from the new private repo subagentceo outcomes-orchestrator?",
+  "success_criteria": [
+    "outcomes QUEUE md is git removed because the queue model is private and now lives at subagentceo outcomes-orchestrator outcomes QUEUE md",
+    "outcomes tick- prefixed outcome+report pairs are git removed because they were per-tick artifacts of the heartbeat and now live in the private repo",
+    "outcomes runrocs directory and the evals directory are git removed because they were operational state not consumable as public artifacts",
+    "claude loop-prompt md claude dispatch json claude agents subdirectory scripts eval sh scripts dispatch-test sh docs adrs and RESUME md are all git removed because each is part of the private operational substrate",
+    "outcomes bootstrap json pair and outcomes orchestrator-bootstrap json pair remain because they document the gate of the MCP server itself and the historical admission of the orchestrator pattern respectively",
+    "README md gains a Split note section that links to the private repo and confirms the public surface is now only the MCP server",
+    "the outcome-gate workflow scores this PR at or above the 3.5 floor against the python HeuristicVerifier"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "QUEUE md removed",
+      "tick-prefixed outcome pairs removed",
+      "runrocs and evals removed",
+      "loop-prompt md dispatch json agents subdirectory removed",
+      "eval sh and dispatch-test sh removed",
+      "docs adrs and RESUME md removed",
+      "bootstrap pairs preserved",
+      "README documents the split",
+      "outcome-gate PR passes at or above 3.5"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

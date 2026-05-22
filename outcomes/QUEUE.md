@@ -38,7 +38,7 @@
 | B2 | done | A1 | Subsumed into A1 — branch protection already covers outcomes-mcp main | `outcomes/runrocs/A1-protection.json` |
 | B3 | done | A1 | Submodule outcomes-mcp into `opensubagents/outcomes/mcp-server/` via PR on outcomes repo | https://github.com/opensubagents/outcomes/pull/10 |
 | B4 | done | A1 | `scripts/probe.sh below-floor` opens a draft PR with known-failing pair; asserts gate red | `outcomes/runrocs/B4-probe.log` |
-| B5 | pending | D3 | Ratchet floor 3.5→4.0 in a feature branch; bootstrap pair must still pass; hold for human merge | PR URL |
+| B5 | in_progress | D3 | Ratchet floor 3.5→4.0 in a feature branch; bootstrap pair must still pass; hold for human merge — PR #18 open, auto-merge NOT armed, awaiting operator decision per ADR 0001 | https://github.com/opensubagents/outcomes-mcp/pull/18 |
 
 ### Track C — Cloudflare wiring
 
@@ -121,6 +121,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T07:00Z tick-15 outcomes#3 still red, unchanged; outcomes-mcp#15 (tick 14) merged at 06:52:45Z
 - 2026-05-22T07:05Z tick-16 D4 pending → done (ADR 0001 rubric-calibration shipped at docs/adrs/0001-rubric-calibration.md; Status: Accepted; records perfect baseline; defers B5 ratchet until naturalistic shoulder pairs exist; recommends eval.sh as soft-gate CI) | next: B5 or D5 or E1
 - 2026-05-22T07:05Z tick-16 outcomes#3 still red, unchanged; outcomes-mcp#16 (tick 15) merged at 06:56:00Z
+- 2026-05-22T07:10Z tick-17 B5 pending → in_progress (single-line ratchet of scripts/eval.sh FLOOR 3.5→4.0; PR opened with auto-merge NOT armed per "hold for human merge"; matrix at floor 4.0 still TP=20 FN=0 TN=20 FP=0; ADR 0001 referenced) | next: D5 (citation staleness) or E1 (outcome-reviewer subagent)
+- 2026-05-22T07:10Z tick-17 outcomes#3 still red, unchanged; outcomes-mcp#17 (tick 16) merged at 07:00:38Z
 
 
 

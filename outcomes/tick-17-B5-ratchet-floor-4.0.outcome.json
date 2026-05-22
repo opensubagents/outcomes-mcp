@@ -1,0 +1,21 @@
+{
+  "title": "Tick 17: ratchet scripts eval sh default floor from 3.5 to 4.0 on a feature branch holding for human merge",
+  "as_of": "2026-05-22",
+  "question": "Does the feature branch claude tick-17-B5-ratchet-floor-4-0 flip the scripts eval sh default floor from 3.5 to 4.0 and produce a confusion matrix that still shows TP=20 FN=0 TN=20 FP=0 while explicitly holding the PR for human merge per the B5 queue row?",
+  "success_criteria": [
+    "scripts eval sh default FLOOR variable changed from 3.5 to 4.0 in a single-line diff on the feature branch",
+    "scripts eval sh executed at the new default emits evals results 2026-05-22-floor-4.0 json with TP=20 FN=0 TN=20 FP=0 confirming no bootstrap or operational pair regresses",
+    "the PR description explicitly notes hold for human merge and references ADR 0001 rubric-calibration which deferred this ratchet pending naturalistic shoulder pairs",
+    "auto-merge is intentionally NOT armed on this PR contrary to the previous 16 ticks and the QUEUE B5 row notes the held state"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "single-line FLOOR variable edit on scripts eval sh from 3.5 to 4.0",
+      "runroc evals results 2026-05-22-floor-4.0 json captures the matrix at the new floor",
+      "PR description names the hold-for-human-merge condition",
+      "auto-merge intentionally not armed so the operator gates the actual ratchet"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

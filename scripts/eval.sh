@@ -17,7 +17,7 @@
 
 set -euo pipefail
 
-FLOOR="3.5"
+FLOOR="4.0"
 PYTHON="/Users/alexzh/subagentmcp/opensubagents/outcomes/sdk-python/.venv/bin/python"
 DATE="$(date -u +%Y-%m-%d)"
 OUT="evals/results/${DATE}.json"

@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend shipping B5 as a single-line ratchet of the scripts eval sh default FLOOR variable from 3.5 to 4.0 on a feature branch with auto-merge intentionally not armed because the B5 queue row says hold for human merge and ADR 0001 rubric-calibration explicitly defers the actual flip until naturalistic shoulder pairs exist. The tradeoff against keeping B5 in pending status indefinitely is that the feature branch makes the ratchet reviewable as a real PR rather than as a future intention so the operator can decide whether the perfect matrix at floor 4.0 is sufficient or whether to wait for shoulder pairs. The runroc evals results 2026-05-22-floor-4.0 json records TP=20 FN=0 TN=20 FP=0 with accuracy precision and recall all 1.0 against the existing 40-pair seed set.",
+  "claims": [
+    {
+      "statement": "scripts eval sh on the feature branch claude tick-17-B5-ratchet-floor-4-0 has its default FLOOR variable changed from 3.5 to 4.0 in a single-line edit because the diff against main shows exactly one line modified and the new default propagates through the FLOOR variable into the score_pair function call and the JSON emitter.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/scripts/eval.sh",
+          "title": "scripts eval sh on main currently sets FLOOR equal to 3.5",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/pull/18",
+          "title": "outcomes-mcp pull 18 single-line ratchet of FLOOR to 4.0",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The CLI level default floor at sdk-python open_outcome cli py in opensubagents outcomes is intentionally not touched by this PR; the eval sh script is the calibration emitter and the rubric-tightener subagent E3 will consume its output."
+    },
+    {
+      "statement": "the confusion matrix at floor 4.0 against the existing 40-pair seed set records TP=20 FN=0 TN=20 FP=0 with accuracy precision and recall all 1.0 because all 20 passing pairs score at or above 4.4 and all 20 failing pairs score at or below 3.4 leaving a 1.0 wide buffer between the worst passing and best failing pair.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/evals/results/2026-05-22-floor-4.0.json",
+          "title": "evals results 2026-05-22-floor-4.0 json captures the matrix and per-pair details at the new floor",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/docs/adrs/0001-rubric-calibration.md",
+          "title": "ADR 0001 records that no fixture falls in the 3.5 to 4.4 band which is why the ratchet matrix is identical to the floor 3.5 matrix",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Identical matrices at floor 3.5 and floor 4.0 mean the ratchet does not exercise the transition; ADR 0001 names this as the reason to wait for naturalistic shoulder pairs before merging. The operator owns the merge decision and the PR is held."
+    },
+    {
+      "statement": "auto-merge is intentionally not armed on outcomes-mcp pull 18 because the B5 queue row literally says hold for human merge and the orchestrator heartbeat respects this in the same way it respects never disable the outcome gate so the PR remains open until the operator merges it explicitly.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "QUEUE md B5 row reads ratchet floor 3.5 to 4.0 in a feature branch bootstrap pair must still pass hold for human merge",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/pull/18",
+          "title": "outcomes-mcp pull 18 PR description names the hold for human merge condition and links to ADR 0001",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "If the operator decides to merge before adding shoulder pairs ADR 0001 should be superseded by ADR 0002 documenting why the shoulder requirement was waived."
+    }
+  ],
+  "open_questions": [
+    "Should the CLI level default floor at sdk-python open_outcome cli py also ratchet to 4.0 in a follow-up PR on the outcomes spec repo or stay at 3.5 as the canonical floor for v0.1.0?"
+  ],
+  "methodology_notes": "Edited scripts eval sh on a fresh feature branch then ran scripts eval sh against the existing 40-pair seed set capturing the matrix at the new floor. The PR opened against outcomes-mcp main with auto-merge intentionally not armed."
+}

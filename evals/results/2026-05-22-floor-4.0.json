@@ -1,0 +1,24 @@
+{
+  "as_of": "2026-05-22T07:03:45Z",
+  "date": "2026-05-22",
+  "floor": 4.0,
+  "verifier_id": "open-outcome.python.heuristic",
+  "totals": {
+    "pairs": 40,
+    "passing_bucket": 20,
+    "failing_bucket": 20,
+    "parse_errors": 0
+  },
+  "confusion_matrix": {
+    "true_positive": 20,
+    "false_negative": 0,
+    "true_negative": 20,
+    "false_positive": 0
+  },
+  "metrics": {
+    "accuracy": 1.000,
+    "precision": 1.000,
+    "recall": 1.000
+  },
+  "pairs": [{"slug":"bootstrap","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"orchestrator-bootstrap","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"outcomes-mcp-tick-12-d1-seed","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"outcomes-mcp-tick-13-d2-seed","bucket":"passing","overall":4.6,"verdict":"true_positive"},{"slug":"spec-bootstrap-v010","bucket":"passing","overall":4.4,"verdict":"true_positive"},{"slug":"spec-drop-research-engineering","bucket":"passing","overall":4.8,"verdict":"true_positive"},{"slug":"spec-mcp-server-submodule","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"spec-outcome-gate","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"spec-revert-session-hook","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"tick-1-A1-protection","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"tick-10-C5-observability","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"tick-11-C6-blocked-C7-radar","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"tick-2-A4-subagents","bucket":"passing","overall":4.6,"verdict":"true_positive"},{"slug":"tick-3-A5-session-start","bucket":"passing","overall":4.6,"verdict":"true_positive"},{"slug":"tick-4-B1-B2-typecheck","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"tick-5-B3-record","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"tick-6-B3-done-B4-probe","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"tick-7-C1-builds-audit","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"tick-8-C2-wrangler-deploy","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"tick-9-C3-blocked-C4-auth","bucket":"passing","overall":5.0,"verdict":"true_positive"},{"slug":"a1-clarity-one-sentence","bucket":"failing","overall":3.4,"verdict":"true_negative"},{"slug":"a2-clarity-six-sentences","bucket":"failing","overall":2.8,"verdict":"true_negative"},{"slug":"a3-clarity-ten-sentences","bucket":"failing","overall":2.8,"verdict":"true_negative"},{"slug":"b1-citations-none","bucket":"failing","overall":2.8,"verdict":"true_negative"},{"slug":"b2-citations-community-only","bucket":"failing","overall":2.8,"verdict":"true_negative"},{"slug":"b3-citations-secondary-only","bucket":"failing","overall":3.0,"verdict":"true_negative"},{"slug":"b4-citations-mostly-community","bucket":"failing","overall":2.2,"verdict":"true_negative"},{"slug":"c1-calibration-high-one-primary","bucket":"failing","overall":2.8,"verdict":"true_negative"},{"slug":"c2-calibration-high-zero-primary","bucket":"failing","overall":2.2,"verdict":"true_negative"},{"slug":"c3-calibration-low-well-sourced","bucket":"failing","overall":2.8,"verdict":"true_negative"},{"slug":"c4-calibration-medium-weak","bucket":"failing","overall":2.2,"verdict":"true_negative"},{"slug":"d1-coverage-zero-hits","bucket":"failing","overall":1.4,"verdict":"true_negative"},{"slug":"d2-coverage-one-of-five","bucket":"failing","overall":1.6,"verdict":"true_negative"},{"slug":"e1-decision-no-signals","bucket":"failing","overall":3.4,"verdict":"true_negative"},{"slug":"e2-decision-one-signal","bucket":"failing","overall":3.2,"verdict":"true_negative"},{"slug":"f1-combined-minimal","bucket":"failing","overall":1.6,"verdict":"true_negative"},{"slug":"f2-combined-hyperconfident","bucket":"failing","overall":1.4,"verdict":"true_negative"},{"slug":"f3-combined-mixed-bad","bucket":"failing","overall":3.4,"verdict":"true_negative"},{"slug":"f4-combined-worst","bucket":"failing","overall":1.4,"verdict":"true_negative"},{"slug":"f5-coverage-trap","bucket":"failing","overall":1.4,"verdict":"true_negative"}]
+}

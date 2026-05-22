@@ -36,8 +36,8 @@
 |---|---|---|---|---|
 | B1 | done | A1 | Prove `typecheck` workflow runs green on a probe commit | `outcomes/runrocs/B1-typecheck-runs.json` |
 | B2 | done | A1 | Subsumed into A1 — branch protection already covers outcomes-mcp main | `outcomes/runrocs/A1-protection.json` |
-| B3 | in_progress | A1 | Submodule outcomes-mcp into `opensubagents/outcomes/mcp-server/` via PR on outcomes repo | https://github.com/opensubagents/outcomes/pull/10 |
-| B4 | pending | A1 | `scripts/probe.sh below-floor` opens a draft PR with known-failing pair; asserts gate red | `runrocs/B4-probe.log` |
+| B3 | done | A1 | Submodule outcomes-mcp into `opensubagents/outcomes/mcp-server/` via PR on outcomes repo | https://github.com/opensubagents/outcomes/pull/10 |
+| B4 | done | A1 | `scripts/probe.sh below-floor` opens a draft PR with known-failing pair; asserts gate red | `outcomes/runrocs/B4-probe.log` |
 | B5 | pending | D3 | Ratchet floor 3.5→4.0 in a feature branch; bootstrap pair must still pass; hold for human merge | PR URL |
 
 ### Track C — Cloudflare wiring
@@ -99,6 +99,9 @@ The heartbeat appends one line per tick:
 - 2026-05-22T06:05Z tick-4 outcomes#3 still red: same outcome-gate-missing-pair situation; firefighter already triaged it, awaiting operator action
 - 2026-05-22T06:10Z tick-5 B3 pending → in_progress (cross-repo PR opensubagents/outcomes#10 opened with submodule + docs; auto-merge armed; will mark done next tick after merge) | next: B4
 - 2026-05-22T06:10Z tick-5 outcomes#3 still red, unchanged; no re-dispatch
+- 2026-05-22T06:15Z tick-6 B3 in_progress → done (outcomes#10 merged 06:06Z) + B4 pending → done (scripts/probe.sh shipped with three drill modes; runroc cites prior session probe evidence) | next: B5 (blocked on D3) or C1
+- 2026-05-22T06:15Z tick-6 outcomes#3 still red, unchanged; no re-dispatch
+
 
 
 

@@ -45,7 +45,7 @@
 | id | status | depends_on | title | runroc_path |
 |---|---|---|---|---|
 | C1 | done | — | Query Cloudflare Workers Builds MCP for outcomes-mcp build history | `outcomes/runrocs/C1-builds.json` |
-| C2 | pending | A1 | `wrangler deploy` outcomes-mcp to Workers; verify `/healthz` returns 200 from live URL | `runrocs/C2-deploy.txt` |
+| C2 | done | A1 | `wrangler deploy` outcomes-mcp to Workers; verify `/healthz` returns 200 from live URL | `outcomes/runrocs/C2-deploy.txt` |
 | C3 | pending | C2 | Custom domain `outcomes.mcp.opensubagents.org` via Cloudflare DNS MCP | `runrocs/C3-dns.txt` |
 | C4 | pending | C2 | Bearer-token auth on Workers (`wrangler secret put`) + curl probe with/without | `runrocs/C4-auth.txt` |
 | C5 | pending | C2 | Cloudflare Observability MCP query confirms live worker received traffic | `runrocs/C5-obs.json` |
@@ -102,6 +102,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T06:15Z tick-6 B3 in_progress → done (outcomes#10 merged 06:06Z) + B4 pending → done (scripts/probe.sh shipped with three drill modes; runroc cites prior session probe evidence) | next: B5 (blocked on D3) or C1
 - 2026-05-22T06:15Z tick-6 outcomes#3 still red, unchanged; no re-dispatch
 - 2026-05-22T06:20Z tick-7 C1 pending → done (Cloudflare workers_list returned 15 workers; no outcomes-mcp worker exists yet; baseline runroc captured) | next: C2 (wrangler deploy) or D1
+- 2026-05-22T06:25Z tick-8 C2 pending → done (wrangler deploy → https://outcomes-mcp.alex-e62.workers.dev; version 3b4d6ffa; /healthz HTTP 200 "ok" in 332ms) | next: C3, C4, C5, C6, F2, F3 all unblocked; lowest-id pending = C3
+- 2026-05-22T06:25Z tick-8 outcomes#3 still red, unchanged; no re-dispatch; outcomes-mcp#8 (tick 7) merged at 06:17:57Z
 - 2026-05-22T06:20Z tick-7 outcomes#3 still red, unchanged; no re-dispatch; outcomes-mcp#7 (tick 6) merged at 06:15:13Z
 
 

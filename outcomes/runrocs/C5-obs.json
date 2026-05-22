@@ -1,0 +1,30 @@
+{
+  "as_of": "2026-05-22T06:30:00Z",
+  "track": "C",
+  "outcome": "C5",
+  "title": "Cloudflare Observability MCP query confirms outcomes-mcp worker received traffic",
+  "tool_used": "mcp__MCP_DOCKER__query_worker_observability (Cloudflare Workers Observability MCP via Docker profile reinforcement_data_engineering)",
+  "query": {
+    "queryId": "tick10-c5-counts",
+    "view": "calculations",
+    "datasets": ["cloudflare-workers"],
+    "filter": "$metadata.service eq outcomes-mcp",
+    "calculation": "count requests",
+    "groupBy": "$metadata.trigger",
+    "timeframe": {
+      "reference": "2026-05-22T06:30:00Z",
+      "offset": "-30m"
+    }
+  },
+  "result_aggregation": [
+    {"trigger": "GET /",            "requests": 7},
+    {"trigger": "GET /favicon.ico", "requests": 3},
+    {"trigger": "GET /healthz",     "requests": 2},
+    {"trigger": "HEAD /",           "requests": 2},
+    {"trigger": "POST /mcp",        "requests": 2}
+  ],
+  "total_requests_in_window": 16,
+  "interpretation": "outcomes-mcp is actively receiving traffic on the deployed workers.dev URL. Observability returns five distinct trigger keys including the two paths the orchestrator exercises (/healthz and /mcp). POST /mcp count of 2 is consistent with the C4 valid-bearer probe (which returned 200 + initialize SSE) plus the tick-10 no-auth probe (which returned 401). The GET / and HEAD / traffic represents passive traffic and likely the operator's earlier browser checks plus background HEAD probes from the Cloudflare edge. The favicon hits come from browser sessions; the root banner returned successfully on each one.",
+  "evidence_window": "06:00:30Z through 06:29:30Z (30 minute relative offset; 59 series timestamps returned by observability)",
+  "next_action": "C6 — put an AI Gateway in front of /mcp and verify gateway log entries; C5's observability surface remains the always-on diagnostic for live worker traffic."
+}

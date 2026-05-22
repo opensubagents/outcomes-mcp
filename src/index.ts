@@ -20,6 +20,7 @@ import type { OutcomeDeclaration, Report, Verdict } from "./types.js";
 
 interface Env {
   LOADER: WorkerLoader;
+  MCP_BEARER_TOKEN?: string;
 }
 
 const CitationInputSchema = z.object({
@@ -150,6 +151,16 @@ export default {
         "Open Outcome MCP server — POST /mcp (streamable HTTP). See https://github.com/opensubagents/outcomes-mcp",
         { headers: { "content-type": "text/plain" } },
       );
+    }
+    if (url.pathname === "/mcp" && env.MCP_BEARER_TOKEN) {
+      const header = req.headers.get("authorization") ?? "";
+      const expected = `Bearer ${env.MCP_BEARER_TOKEN}`;
+      if (header !== expected) {
+        return new Response("unauthorized", {
+          status: 401,
+          headers: { "content-type": "text/plain", "www-authenticate": "Bearer" },
+        });
+      }
     }
     const handler = await buildHandler(env);
     return handler(req, env, ctx);

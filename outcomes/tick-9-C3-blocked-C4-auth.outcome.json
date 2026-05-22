@@ -1,0 +1,21 @@
+{
+  "title": "Tick 9: mark C3 blocked on missing apex zone and ship C4 bearer-token auth on the Worker",
+  "as_of": "2026-05-22",
+  "question": "Does the deployed outcomes-mcp Worker now require a bearer token at /mcp while keeping /healthz public and is C3 correctly marked blocked because the opensubagents.org apex is not in the operator's Cloudflare account?",
+  "success_criteria": [
+    "QUEUE row C3 flipped to blocked with the runroc explaining that opensubagents.org is not present in account e6294e3ea89f8207af387d459824aaae",
+    "wrangler secret put MCP_BEARER_TOKEN uploads a 32-byte hex secret and wrangler deploy redeploys outcomes-mcp with the new auth gate at version 89b17bef",
+    "curl probes prove the matrix healthz public no-auth 401 valid-bearer 200 wrong-bearer 401 against the live worker URL",
+    "runroc outcomes runrocs C4-auth txt captures the four probe outcomes with timings and version id"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "C3 blocked status recorded with a runroc that names the missing apex and lists candidate substitute zones already in inventory",
+      "MCP_BEARER_TOKEN secret bound to outcomes-mcp via wrangler secret put",
+      "outcomes-mcp redeployed at version 89b17bef with the bearer auth gate on the mcp path",
+      "four curl probes prove the auth matrix and are captured in the C4 runroc"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

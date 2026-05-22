@@ -1,0 +1,29 @@
+{
+  "summary": "Done.",
+  "claims": [
+    {
+      "statement": "Mostly community evidence.",
+      "confidence": "low",
+      "citations": [
+        {
+          "url": "https://reddit.com/r/x/1",
+          "title": "reddit 1",
+          "accessed": "2026-05-22",
+          "kind": "community"
+        },
+        {
+          "url": "https://reddit.com/r/x/2",
+          "title": "reddit 2",
+          "accessed": "2026-05-22",
+          "kind": "community"
+        },
+        {
+          "url": "https://reddit.com/r/x/3",
+          "title": "reddit 3",
+          "accessed": "2026-05-22",
+          "kind": "community"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "summary": "We claim something based on community sources. We recommend caution.",
+  "claims": [
+    {
+      "statement": "Things were observed by users on forums.",
+      "confidence": "low",
+      "citations": [
+        {
+          "url": "https://reddit.com/r/x/post/1",
+          "title": "reddit post",
+          "accessed": "2026-05-22",
+          "kind": "community"
+        },
+        {
+          "url": "https://forum.com/t/2",
+          "title": "forum thread",
+          "accessed": "2026-05-22",
+          "kind": "community"
+        }
+      ]
+    }
+  ]
+}

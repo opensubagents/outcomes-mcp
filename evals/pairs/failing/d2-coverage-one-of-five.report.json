@@ -1,0 +1,17 @@
+{
+  "summary": "Done.",
+  "claims": [
+    {
+      "statement": "Clarity exists.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://reddit/c",
+          "title": "r",
+          "accessed": "2026-05-22",
+          "kind": "community"
+        }
+      ]
+    }
+  ]
+}

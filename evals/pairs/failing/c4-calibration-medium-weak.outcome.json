@@ -1,0 +1,14 @@
+{
+  "title": "Probe \u2014 c4",
+  "as_of": "2026-05-22",
+  "question": "What is X?",
+  "success_criteria": [
+    "the system answers the question with primary citations"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "primary citations present"
+    ]
+  }
+}

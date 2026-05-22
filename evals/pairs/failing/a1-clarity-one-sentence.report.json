@@ -1,0 +1,23 @@
+{
+  "summary": "We did the thing successfully.",
+  "claims": [
+    {
+      "statement": "The thing was done.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://example.com/a",
+          "title": "doc a",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://example.com/b",
+          "title": "doc b",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ]
+    }
+  ]
+}

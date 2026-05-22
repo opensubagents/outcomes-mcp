@@ -1,0 +1,23 @@
+{
+  "title": "Tick 13: seed evals pairs failing with 20 deliberately-bad pairs covering every failure mode of HeuristicVerifier",
+  "as_of": "2026-05-22",
+  "question": "Does evals pairs failing now contain 20 outcome+report pairs that score below the canonical floor of 3.5 against the python HeuristicVerifier and is each pair tagged with the specific failure mode it targets so D3 can attribute confusion-matrix failures to a rubric dimension?",
+  "success_criteria": [
+    "evals pairs failing contains 40 files representing 20 outcome+report pairs",
+    "all 20 pairs score strictly below 3.5 against the python HeuristicVerifier",
+    "pairs are distributed across the five rubric dimensions clarity citation_quality confidence_calibration coverage decision_usefulness plus a combined pathological bucket",
+    "MANIFEST md enumerates each pair with its slug score and the dimension it targets so D3 can attribute failures to a specific rubric axis"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "3 clarity-failure pairs a1 a2 a3 exercise the 1 sentence 6 sentence and 10 sentence buckets",
+      "4 citation_quality pairs b1 b2 b3 b4 exercise none community-only secondary-only and mostly community sourcing",
+      "4 confidence_calibration pairs c1 c2 c3 c4 exercise high-with-1-primary high-with-0-primary low-but-well-sourced and medium-with-weak",
+      "2 coverage pairs d1 d2 exercise zero overlap and 1-of-5 overlap with success_criteria",
+      "2 decision_usefulness pairs e1 e2 exercise zero signals and one signal",
+      "5 combined pathological pairs f1 through f5 exercise multi-axis failure modes"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

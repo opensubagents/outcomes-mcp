@@ -57,7 +57,7 @@
 | id | status | depends_on | title | runroc_path |
 |---|---|---|---|---|
 | D1 | in_progress | — | 20 high-quality outcome+report pairs at `evals/pairs/passing/*.json` (sourced from real PRs across enterprise) — 15/20 seeded from outcomes-mcp ticks + outcomes spec repo; 5 more needed from cross-org enterprise PRs | `evals/pairs/passing/MANIFEST.md` |
-| D2 | pending | — | 20 deliberately-bad pairs at `evals/pairs/failing/*.json` covering each failure mode | `evals/pairs/failing/` |
+| D2 | done | — | 20 deliberately-bad pairs at `evals/pairs/failing/*.json` covering each failure mode (a*=clarity, b*=citation_quality, c*=calibration, d*=coverage, e*=decision, f*=combined; all 20 score <3.5) | `evals/pairs/failing/MANIFEST.md` |
 | D3 | pending | D1,D2 | `scripts/eval.sh` runs verifier across all 40 pairs; emits confusion matrix | `evals/results/{date}.json` |
 | D4 | pending | D3 | First ADR: `docs/adrs/0001-rubric-calibration.md` records FP/FN rates from D3 | `docs/adrs/0001-rubric-calibration.md` |
 | D5 | pending | D4 | Citation-staleness check: downgrade citation_quality if `accessed` >180 days. Ports across spec, sdk-python, sdk-typescript, CLI test | PR URL on outcomes |
@@ -113,6 +113,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T06:40Z tick-11 outcomes#3 still red, unchanged; outcomes-mcp#11 (tick 10) merged at 06:31:55Z; Track C summary: C1/C2/C4/C5/C7 done, C3/C6 blocked on operator decisions
 - 2026-05-22T06:45Z tick-12 D1 pending → in_progress (15/20 pairs seeded into evals/pairs/passing/ from outcomes-mcp ticks #1-12 + outcomes spec repo; all 15 verified ≥3.5; MANIFEST.md lists candidates for the remaining 5) | next: D2 (failing pairs) or continue D1 with cross-org sourcing
 - 2026-05-22T06:45Z tick-12 outcomes#3 still red, unchanged; outcomes-mcp#12 (tick 11) merged at 06:37:26Z
+- 2026-05-22T06:50Z tick-13 D2 pending → done (20 failing pairs seeded covering all 5 rubric dimensions + combined; all 20 score <3.5, range 1.4-3.4) | next: D3 (eval.sh + confusion matrix) — D1+D2 now both satisfy D3 deps; D1 still in_progress at 15/20 but D3 can use the partial set
+- 2026-05-22T06:50Z tick-13 outcomes#3 still red, unchanged; outcomes-mcp#13 (tick 12) merged at 06:42:33Z
 
 
 

@@ -24,7 +24,7 @@
 
 | id | status | depends_on | title | runroc_path |
 |---|---|---|---|---|
-| A1 | pending | — | Branch protection on `opensubagents/outcomes-mcp` main (require `outcome-gate`, enforce_admins, linear history) | `outcomes/runrocs/A1-protection.json` |
+| A1 | done | — | Branch protection on `opensubagents/outcomes-mcp` main (require `outcome-gate`, enforce_admins, linear history) | `outcomes/runrocs/A1-protection.json` |
 | A2 | done | — | QUEUE.md committed at `outcomes/QUEUE.md` with all 31 outcomes | `outcomes/QUEUE.md` |
 | A3 | done | — | Heartbeat prompt committed at `.claude/loop-prompt.md` | `.claude/loop-prompt.md` |
 | A4 | pending | A3 | Three review subagents codified in `.claude/agents/`: outcome-reviewer, ci-firefighter, rubric-tightener | `.claude/agents/README.md` |
@@ -88,3 +88,7 @@ The heartbeat appends one line per tick:
 ```
 2026-05-22T05:30Z A1 in_progress → done (PR #N merged) | next: A4
 ```
+
+- 2026-05-22T05:45Z tick-1 A1 pending → done (branch protection PUT, runroc A1-protection.json) | next: A4
+- 2026-05-22T05:45Z tick-1 noted: outcomes#3 has 1 failing check; ci-firefighter subagent (A4) not yet shipped, will revisit after A4 merges
+

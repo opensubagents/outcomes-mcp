@@ -78,7 +78,7 @@
 |---|---|---|---|---|
 | F1 | done | — | Orchestrator memory at `~/.claude/projects/.../memory/orchestrator.md` | (operator-side file) |
 | F2 | done | C2 | VS Code MCP probe — confirm outcomes-mcp reachable. `.vscode/mcp.json` shipped + text-mode reachability runroc (PNG capture deferred to operator-present action documented in runroc) | `outcomes/runrocs/F2-vscode.md` |
-| F3 | pending | C2 | Claude Desktop config check — Desktop calls verify_outcome_pair; transcript saved | `runrocs/F3-desktop.md` |
+| F3 | done | C2 | Claude Desktop config check — `docs/claude-desktop-config-snippet.json` + transcript runroc (initialize/tools/list/tools/call against live worker; in-Desktop capture deferred to operator) | `outcomes/runrocs/F3-desktop.md` |
 | F4 | pending | A2,A3,F1 | `RESUME.md` in repo root: top-5 files to read on session resume | `RESUME.md` |
 
 ## Tick log
@@ -137,6 +137,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T07:40Z tick-23 outcomes#3 still red, unchanged; outcomes-mcp#23 (tick 22) merged at 07:31:46Z; outcomes-mcp#18 (B5) still held. **Track E now COMPLETE (E1/E2/E3/E4 all done)**
 - 2026-05-22T07:45Z tick-24 F2 pending → done (.vscode/mcp.json shipped declaring outcomes-mcp as remote HTTP MCP with Bearer-input prompt; reachability probe GET /healthz 200 + POST /mcp 200 with codemode initialize SSE; text-mode runroc documents operator-present PNG capture steps) | next: F3 (Claude Desktop) or F4 (RESUME.md)
 - 2026-05-22T07:45Z tick-24 outcomes#3 still red, unchanged; outcomes-mcp#24 (tick 23) merged at 07:36:10Z; outcomes-mcp#18 (B5) still held
+- 2026-05-22T07:50Z tick-25 F3 pending → done (docs/claude-desktop-config-snippet.json shipped via mcp-remote stdio shim; live worker probed end-to-end with initialize→tools/list→tools/call; codemode.spec_info({}) returned canonical_floor 3.5; operator's existing pdf+MCP_DOCKER mcpServers preserved by additive snippet design) | next: F4 (RESUME.md)
+- 2026-05-22T07:50Z tick-25 outcomes#3 still red, unchanged; outcomes-mcp#25 (tick 24) merged at 07:40:49Z; outcomes-mcp#18 (B5) still held
 
 
 

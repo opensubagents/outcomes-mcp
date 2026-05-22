@@ -1,0 +1,22 @@
+{
+  "_description": "Snippet to merge into ~/Library/Application Support/Claude/claude_desktop_config.json under mcpServers. Adds outcomes-mcp as a remote HTTP MCP via the mcp-remote stdio shim (works on every Desktop version including those without native remote MCP support).",
+  "_install": [
+    "1. Open ~/Library/Application Support/Claude/claude_desktop_config.json",
+    "2. Add the 'outcomes-mcp' entry below into the mcpServers object",
+    "3. Replace BEARER_TOKEN_HERE with the value from /tmp/outcomes-mcp-bearer-token-tick9.txt",
+    "4. Quit and relaunch Claude Desktop",
+    "5. Verify outcomes-mcp appears in the MCP servers list and verify_outcome_pair is callable"
+  ],
+  "mcpServers": {
+    "outcomes-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://outcomes-mcp.alex-e62.workers.dev/mcp",
+        "--header",
+        "Authorization:Bearer BEARER_TOKEN_HERE"
+      ]
+    }
+  }
+}

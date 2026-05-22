@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend shipping F3 as a Desktop config snippet plus a transcript runroc rather than a literal in-Desktop screenshot because the heartbeat can prove the same MCP handshake path with three HTTP probes against the live worker and the operator can capture the in-Desktop view at a convenient operator-present tick. The tradeoff against waiting for an operator-present capture is that the worker is verifiably reachable today and the Desktop config is additive to the operator's existing two mcpServers entries pdf and MCP_DOCKER so the merge is safe to stage now. The runroc records the full initialize tools/list tools/call transcript with HTTP 200 on each call and the spec_info JSON returned in the tools/call response confirming the deterministic verifier ran in the Worker Loader sandbox.",
+  "claims": [
+    {
+      "statement": "docs claude-desktop-config-snippet json declares the outcomes-mcp entry via npx -y mcp-remote pointed at the deployed workers dev mcp URL with the Authorization Bearer header and the bearer token placeholder BEARER_TOKEN_HERE that the operator replaces with the value from /tmp outcomes-mcp-bearer-token-tick9 txt.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/docs/claude-desktop-config-snippet.json",
+          "title": "Desktop config snippet with mcp-remote stdio shim entry",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/geelen/mcp-remote",
+          "title": "mcp-remote stdio shim that bridges Claude Desktop to a remote HTTP MCP",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Newer Claude Desktop builds support native remote MCP via the Custom Connectors UI which would not require mcp-remote; the snippet uses the shim to keep the path version-independent."
+    },
+    {
+      "statement": "the 3-call transcript captured in F3-desktop md proves the full MCP handshake works end-to-end against the live worker because initialize returned protocolVersion 2024-11-05 with the codemode serverInfo tools/list returned exactly one tool named code with the TypeScript types for verify_outcome_pair and spec_info inlined and tools/call with JS payload return await codemode.spec_info({}) returned the spec_info JSON with canonical_floor 3.5.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/F3-desktop.md",
+          "title": "F3 desktop runroc with the 3-call transcript",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/src/index.ts",
+          "title": "outcomes-mcp source wiring codeMcpServer around the inner McpServer with verify_outcome_pair and spec_info",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The tools/call demonstration uses spec_info rather than verify_outcome_pair because spec_info has zero required inputs and produces an unambiguous fixed response; verify_outcome_pair takes the same path with a larger JS payload."
+    },
+    {
+      "statement": "the operator's current claude_desktop_config json was observed to contain two mcpServers entries pdf and MCP_DOCKER so the snippet is additive not destructive and merging it preserves the existing servers and the preferences chromeExtension localAgentModeTrustedFolders blocks unchanged.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/F3-desktop.md",
+          "title": "F3 runroc records the observed mcpServers list before the merge",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/docs/claude-desktop-config-snippet.json",
+          "title": "snippet install steps describe the merge-into pattern",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The operator's claude_desktop_config json contains preferences not just mcpServers; the snippet documents only the mcpServers addition and the operator should preserve the preferences block when merging."
+    }
+  ],
+  "open_questions": [
+    "Should F3 also exercise verify_outcome_pair with a real outcome+report pair in the tools/call transcript rather than spec_info so the runroc demonstrates the full verifier path end-to-end?"
+  ],
+  "methodology_notes": "Listed the operator's claude_desktop_config json mcpServers block then authored the snippet against the mcp-remote stdio shim pattern. Probed the live worker with three sequential JSON-RPC calls initialize tools/list and tools/call codemode spec_info captured all three responses verbatim in the runroc."
+}

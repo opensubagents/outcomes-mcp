@@ -61,14 +61,14 @@
 | D3 | done | D1,D2 | `scripts/eval.sh` runs verifier across all 40 pairs; emits confusion matrix (TP=20 FN=0 TN=20 FP=0; accuracy=1.0) | `evals/results/2026-05-22.json` |
 | D4 | done | D3 | First ADR: `docs/adrs/0001-rubric-calibration.md` records FP/FN rates from D3 (Status: Accepted; defers floor ratchet to B5 pending calibration shoulder) | `docs/adrs/0001-rubric-calibration.md` |
 | D5 | done | D4 | Citation-staleness check: downgrade citation_quality if `accessed` >180 days. Ports across spec, sdk-python, sdk-typescript, CLI test | https://github.com/opensubagents/outcomes/pull/11 |
-| D6 | in_progress | D4 | Optional `--check-urls` flag: HEAD-request each citation, downgrade on 4xx/5xx — outcomes#12 opened with auto-merge armed, awaiting CI | https://github.com/opensubagents/outcomes/pull/12 |
+| D6 | done | D4 | Optional `--check-urls` flag: HEAD-request each citation, downgrade on 4xx/5xx | https://github.com/opensubagents/outcomes/pull/12 |
 
 ### Track E — Multi-agent review surface
 
 | id | status | depends_on | title | runroc_path |
 |---|---|---|---|---|
 | E1 | done | A4 | outcome-reviewer subagent runnable: reads open PR, scores pair, posts review comment — dispatched on opensubagents/outcomes-mcp#18, posted structured comment with overall 4.4 verdict | https://github.com/opensubagents/outcomes-mcp/pull/18#issuecomment-4516292475 |
-| E2 | pending | A4 | ci-firefighter subagent runnable: reads failed CI, opens fix PR | Example fix PR URL |
+| E2 | done | A4 | ci-firefighter subagent runnable: reads failed CI, classifies failure, posts triage comment (and honors dedup) — dispatched against outcomes#3, classified outcome-gate, observed prior triage, no duplicate posted | https://github.com/opensubagents/outcomes/pull/3#issuecomment-4515536028 |
 | E3 | pending | A4,D3 | rubric-tightener subagent runnable: given matrix from D3, proposes rubric edit | Example proposal PR URL |
 | E4 | pending | E1,E2,E3 | `.claude/dispatch.json` event→subagent matrix; test simulates each event | `runrocs/E4-dispatch-test.log` |
 
@@ -129,6 +129,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T07:20Z tick-19 outcomes#3 still red, unchanged; outcomes-mcp#19 (tick 18) merged at 07:13:34Z; outcomes-mcp#18 (B5) still held
 - 2026-05-22T07:25Z tick-20 E1 pending → done (outcome-reviewer subagent dispatched via Agent tool against PR #18; scored pair 4.4; identified clarity as weakest dim; posted structured comment) + observed D6 cross-repo PR outcomes#12 merged at 07:14Z so D6 effectively done | next: E2 (ci-firefighter runnable) or D6 done-flip
 - 2026-05-22T07:25Z tick-20 outcomes#3 still red, unchanged; outcomes-mcp#20 (tick 19) merged at 07:18:40Z; outcomes-mcp#18 (B5) still held
+- 2026-05-22T07:30Z tick-21 D6 in_progress → done (outcomes#12 merged at 07:17Z) + E2 pending → done (ci-firefighter re-dispatched against outcomes#3; classified outcome-gate; observed prior triage; honored no-duplicate rule; no new post) | next: E3 (rubric-tightener; D3 done so unblocked)
+- 2026-05-22T07:30Z tick-21 outcomes#3 still red, unchanged (ci-firefighter dedup confirmed prior triage stands); outcomes-mcp#21 (tick 20) merged at 07:23:38Z; outcomes-mcp#18 (B5) still held
 
 
 

@@ -1,0 +1,21 @@
+{
+  "title": "Tick 21: flip D6 done after outcomes pull 12 merged and prove ci-firefighter subagent runnable by re-dispatching on outcomes pull 3",
+  "as_of": "2026-05-22",
+  "question": "Does the QUEUE row D6 flip from in_progress to done now that opensubagents outcomes pull 12 has merged and does the ci-firefighter subagent demonstrate correct dedup behavior when re-dispatched against the long-standing red outcomes pull 3 by classifying the failure observing the prior triage comment and posting no duplicate?",
+  "success_criteria": [
+    "QUEUE row D6 flipped in_progress to done with the merged opensubagents outcomes pull 12 URL preserved as the runroc",
+    "ci-firefighter subagent re-dispatched against outcomes pull 3 via the Agent tool and classified the failure as outcome-gate the same as the prior triage from tick 3",
+    "the subagent honored the no-duplicate rule by detecting the prior alex-jadecli ci-firefighter comment and skipping a new post",
+    "runroc outcomes runrocs E2-ci-firefighter json records the prior comment body author and URL so future ticks can verify the subagent has already triaged this PR"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "D6 row flipped done after outcomes pull 12 merge",
+      "ci-firefighter subagent classifies outcome-gate failures correctly",
+      "subagent dedup behavior verified by observing skip on unchanged failure",
+      "runroc captures the prior triage comment that the subagent observed"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

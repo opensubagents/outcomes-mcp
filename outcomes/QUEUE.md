@@ -67,7 +67,7 @@
 
 | id | status | depends_on | title | runroc_path |
 |---|---|---|---|---|
-| E1 | pending | A4 | outcome-reviewer subagent runnable: reads open PR, scores pair, posts review comment | Example PR URL |
+| E1 | done | A4 | outcome-reviewer subagent runnable: reads open PR, scores pair, posts review comment — dispatched on opensubagents/outcomes-mcp#18, posted structured comment with overall 4.4 verdict | https://github.com/opensubagents/outcomes-mcp/pull/18#issuecomment-4516292475 |
 | E2 | pending | A4 | ci-firefighter subagent runnable: reads failed CI, opens fix PR | Example fix PR URL |
 | E3 | pending | A4,D3 | rubric-tightener subagent runnable: given matrix from D3, proposes rubric edit | Example proposal PR URL |
 | E4 | pending | E1,E2,E3 | `.claude/dispatch.json` event→subagent matrix; test simulates each event | `runrocs/E4-dispatch-test.log` |
@@ -127,6 +127,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T07:15Z tick-18 outcomes#3 still red, unchanged; outcomes-mcp#17 (tick 16) was last merged at 07:00:38Z; outcomes-mcp#18 (tick 17 B5 ratchet) remains intentionally held for operator
 - 2026-05-22T07:20Z tick-19 D5 in_progress → done (outcomes#11 merged at 07:09Z) + D6 pending → in_progress (outcomes#12 opened with auto-merge armed; --check-urls flag off-by-default; HeuristicVerifier verify stays pure; 29/29 tests pass) | next: E1 or E2 (both unblocked since A4)
 - 2026-05-22T07:20Z tick-19 outcomes#3 still red, unchanged; outcomes-mcp#19 (tick 18) merged at 07:13:34Z; outcomes-mcp#18 (B5) still held
+- 2026-05-22T07:25Z tick-20 E1 pending → done (outcome-reviewer subagent dispatched via Agent tool against PR #18; scored pair 4.4; identified clarity as weakest dim; posted structured comment) + observed D6 cross-repo PR outcomes#12 merged at 07:14Z so D6 effectively done | next: E2 (ci-firefighter runnable) or D6 done-flip
+- 2026-05-22T07:25Z tick-20 outcomes#3 still red, unchanged; outcomes-mcp#20 (tick 19) merged at 07:18:40Z; outcomes-mcp#18 (B5) still held
 
 
 

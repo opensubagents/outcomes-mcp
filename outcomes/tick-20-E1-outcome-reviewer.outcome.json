@@ -1,0 +1,21 @@
+{
+  "title": "Tick 20: prove the outcome-reviewer subagent is runnable by dispatching it against open PR opensubagents outcomes-mcp 18",
+  "as_of": "2026-05-22",
+  "question": "Did the outcome-reviewer subagent successfully read PR 18 on opensubagents outcomes-mcp score its outcome+report pair against HeuristicVerifier and post a structured review comment naming the verdict the weakest dimension and a recommendation per the role spec at .claude agents outcome-reviewer md?",
+  "success_criteria": [
+    "Agent tool dispatched the outcome-reviewer subagent against PR 18 and the subagent followed the documented procedure without modifying any repo files",
+    "the subagent scored the pair via the python HeuristicVerifier and reported overall 4.4 against floor 3.5",
+    "the subagent posted exactly one comment on PR 18 with the role-specified shape header dimensions weakest-dimension recommendation",
+    "runroc outcomes runrocs E1-outcome-reviewer json records the posted comment author URL and full body"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "outcome-reviewer subagent dispatchable via the Agent tool from the heartbeat",
+      "subagent reads PR pair without modifying the working tree",
+      "subagent scores via python HeuristicVerifier and identifies the weakest dimension",
+      "subagent posts exactly one structured comment in the documented format"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

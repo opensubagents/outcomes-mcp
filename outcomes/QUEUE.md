@@ -49,8 +49,8 @@
 | C3 | blocked | C2 | Custom domain `outcomes.mcp.opensubagents.org` via Cloudflare DNS MCP — apex zone NOT in Cloudflare account; runroc lists substitute zones in inventory | `outcomes/runrocs/C3-dns.txt` |
 | C4 | done | C2 | Bearer-token auth on Workers (`wrangler secret put`) + curl probe with/without | `outcomes/runrocs/C4-auth.txt` |
 | C5 | done | C2 | Cloudflare Observability MCP query confirms live worker received traffic | `outcomes/runrocs/C5-obs.json` |
-| C6 | pending | C2 | AI Gateway in front of the MCP; verify gateway log entries | `runrocs/C6-gateway.json` |
-| C7 | pending | — | Radar MCP baseline traffic for opensubagents.org saved for diff | `runrocs/C7-radar.json` |
+| C6 | blocked | C2 | AI Gateway in front of the MCP; verify gateway log entries — AI Gateway is an LLM-provider proxy not a generic HTTP gateway; outcomes-mcp has no upstream LLM call; runroc lists alternatives | `outcomes/runrocs/C6-gateway.json` |
+| C7 | done | — | Radar MCP baseline traffic for opensubagents.org saved for diff | `outcomes/runrocs/C7-radar.json` |
 
 ### Track D — Eval / rubric tightening
 
@@ -109,6 +109,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T06:20Z tick-7 outcomes#3 still red, unchanged; no re-dispatch; outcomes-mcp#7 (tick 6) merged at 06:15:13Z
 - 2026-05-22T06:35Z tick-10 C5 pending → done (Cloudflare Observability MCP confirmed outcomes-mcp received traffic: 16 requests across 5 triggers including GET /healthz and POST /mcp; 59 series timestamps) | next: C6 (AI Gateway) or C7 (Radar baseline)
 - 2026-05-22T06:35Z tick-10 outcomes#3 still red, unchanged; outcomes-mcp#10 (tick 9) merged at 06:28:27Z
+- 2026-05-22T06:40Z tick-11 C6 pending → blocked (AI Gateway is LLM-provider-only per docs; outcomes-mcp has no upstream LLM; runroc lists alternatives) + C7 pending → done (Radar baseline: opensubagents.org bucket >200000, subagentmcp.com rank+bucket null) | next: D1 (Track D kicks off)
+- 2026-05-22T06:40Z tick-11 outcomes#3 still red, unchanged; outcomes-mcp#11 (tick 10) merged at 06:31:55Z; Track C summary: C1/C2/C4/C5/C7 done, C3/C6 blocked on operator decisions
 
 
 

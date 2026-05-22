@@ -1,0 +1,35 @@
+{
+  "as_of": "2026-05-22T06:35:00Z",
+  "track": "C",
+  "outcome": "C7",
+  "title": "Cloudflare Radar baseline traffic for opensubagents.org saved for diff",
+  "tool_used": "mcp__MCP_DOCKER__get_domain_rank_details (Cloudflare Radar MCP via Docker profile reinforcement_data_engineering)",
+  "primary_domain": {
+    "domain": "opensubagents.org",
+    "query_response": {
+      "rank": null,
+      "bucket": ">200000",
+      "categories": []
+    },
+    "radar_date_range": {
+      "startTime": "2026-05-18T00:00:00Z",
+      "endTime": "2026-05-18T00:00:00Z"
+    },
+    "interpretation": "opensubagents.org has a Radar bucket of >200000 meaning it sits below the top 200000 globally ranked domains. Rank is null because Radar only assigns numeric ranks within the top 200000. This is the expected pre-launch baseline for a brand-new project domain that does not yet exist in this Cloudflare account."
+  },
+  "comparison_domain": {
+    "domain": "subagentmcp.com",
+    "query_response": {
+      "rank": null,
+      "bucket": null,
+      "categories": []
+    },
+    "radar_date_range": {
+      "startTime": "2026-05-18T00:00:00Z",
+      "endTime": "2026-05-18T00:00:00Z"
+    },
+    "interpretation": "subagentmcp.com returned rank=null and bucket=null which means Radar has insufficient traffic samples to even place it in a bucket. The domain IS in the Cloudflare account but receives so little organic traffic that Radar cannot rank it."
+  },
+  "diff_baseline": "Both primary and comparison domains are effectively at zero Radar visibility as of 2026-05-18. Any future tick that re-runs C7 and observes a numeric rank or a populated bucket can use this baseline as the before snapshot to attribute changes to (e.g.) an outcomes-mcp launch, a domain registration, or a public announcement.",
+  "next_action": "C7 is treated as the close-out for Track C alongside C5 (live traffic confirmed via Observability) and C4 (auth shipped). C3 + C6 remain blocked pending operator decisions. Track D (eval pairs) is the next major track."
+}

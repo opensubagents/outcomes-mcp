@@ -1,0 +1,19 @@
+{
+  "title": "Tick 4: typecheck green proof + B2 subsumption (queue items B1 and B2)",
+  "as_of": "2026-05-22",
+  "question": "Has the typecheck workflow on outcomes-mcp produced a green run on every PR and main push since A1 shipped, and is the B2 branch-protection-mirror item subsumed by A1?",
+  "success_criteria": [
+    "runroc B1 typecheck runs json captures the most recent six typecheck workflow runs all showing conclusion success",
+    "B2 branch protection mirror is closed as subsumed because A1 already applied the same protection on outcomes-mcp main",
+    "the typecheck workflow file exists at github workflows typecheck yml and runs on pull request and push to main"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "typecheck workflow green on six consecutive runs spanning pull_request and push events",
+      "B2 subsumed correctly because A1 protection already enforces outcome-gate and typecheck on outcomes-mcp main",
+      "typecheck workflow file exists at github workflows typecheck yml with triggers pull_request and push to main"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

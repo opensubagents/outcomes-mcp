@@ -1,0 +1,21 @@
+{
+  "title": "Tick 25: ship Claude Desktop config snippet plus transcript runroc that exercises the full MCP handshake against the live outcomes-mcp worker",
+  "as_of": "2026-05-22",
+  "question": "Does docs claude-desktop-config-snippet json declare an outcomes-mcp entry via the mcp-remote stdio shim that the operator can merge into claude_desktop_config json and does outcomes runrocs F3-desktop md record the full initialize tools/list tools/call transcript proving the Desktop path works end-to-end?",
+  "success_criteria": [
+    "docs claude-desktop-config-snippet json present declaring outcomes-mcp via npx mcp-remote with a Bearer token placeholder and step-by-step install notes",
+    "outcomes runrocs F3-desktop md captures the 3-call transcript initialize tools/list and tools/call with HTTP 200 on each and the canonical floor 3.5 in the spec_info response",
+    "the operator's current claude_desktop_config json was observed (verified mcpServers contains pdf and MCP_DOCKER) so the snippet is additive not destructive",
+    "the runroc documents the operator action to capture the literal in-Desktop transcript with a 5 step procedure"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "Desktop config snippet present at docs claude-desktop-config-snippet json",
+      "live worker proves the full MCP handshake end-to-end via initialize tools/list tools/call",
+      "spec_info returned canonical_floor 3.5 matching v0.1.0 of the spec",
+      "operator action steps documented for transcript capture"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

@@ -58,7 +58,7 @@
 |---|---|---|---|---|
 | D1 | done | — | 20 high-quality outcome+report pairs at `evals/pairs/passing/*.json` (sourced from real PRs across enterprise) — 20/20 from outcomes-mcp ticks + outcomes spec PRs #1, #2, #5, #6, #10 | `evals/pairs/passing/MANIFEST.md` |
 | D2 | done | — | 20 deliberately-bad pairs at `evals/pairs/failing/*.json` covering each failure mode (a*=clarity, b*=citation_quality, c*=calibration, d*=coverage, e*=decision, f*=combined; all 20 score <3.5) | `evals/pairs/failing/MANIFEST.md` |
-| D3 | pending | D1,D2 | `scripts/eval.sh` runs verifier across all 40 pairs; emits confusion matrix | `evals/results/{date}.json` |
+| D3 | done | D1,D2 | `scripts/eval.sh` runs verifier across all 40 pairs; emits confusion matrix (TP=20 FN=0 TN=20 FP=0; accuracy=1.0) | `evals/results/2026-05-22.json` |
 | D4 | pending | D3 | First ADR: `docs/adrs/0001-rubric-calibration.md` records FP/FN rates from D3 | `docs/adrs/0001-rubric-calibration.md` |
 | D5 | pending | D4 | Citation-staleness check: downgrade citation_quality if `accessed` >180 days. Ports across spec, sdk-python, sdk-typescript, CLI test | PR URL on outcomes |
 | D6 | pending | D4 | Optional `--check-urls` flag: HEAD-request each citation, downgrade on 4xx/5xx | PR URL on outcomes |
@@ -117,6 +117,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T06:50Z tick-13 outcomes#3 still red, unchanged; outcomes-mcp#13 (tick 12) merged at 06:42:33Z
 - 2026-05-22T06:55Z tick-14 D1 in_progress → done (5 final pairs added: spec-bootstrap-v010 [4.4], spec-drop-research-engineering [4.8], spec-revert-session-hook [5.0], outcomes-mcp-tick-12-d1-seed [5.0], outcomes-mcp-tick-13-d2-seed [4.6]; total 20/20 ≥3.5) | next: D3 (eval.sh + confusion matrix; D1+D2 deps now strictly done)
 - 2026-05-22T06:55Z tick-14 outcomes#3 still red, unchanged; outcomes-mcp#14 (tick 13) merged at 06:48:22Z
+- 2026-05-22T07:00Z tick-15 D3 pending → done (scripts/eval.sh shipped; ran across 40 pairs; confusion matrix TP=20 FN=0 TN=20 FP=0; accuracy=precision=recall=1.0; evals/results/2026-05-22.json) | next: D4 (ADR 0001 rubric-calibration) or B5 (now unblocked — D3 done) or E3 (now unblocked)
+- 2026-05-22T07:00Z tick-15 outcomes#3 still red, unchanged; outcomes-mcp#15 (tick 14) merged at 06:52:45Z
 
 
 

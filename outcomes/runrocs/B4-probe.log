@@ -1,0 +1,17 @@
+=== B4 runroc: outcome-gate probe behavior ===
+Source: prior session probes on opensubagents/outcomes (2026-05-22 ~02:30Z)
+
+probe-empty (PR #7):    gate FAILED with "PR introduces no outcome+report pair"
+probe-orphan (PR #8):   gate FAILED with "orphan outcome — slug 'probe-orphan' has outcomes/probe-orphan.outcome.json but no matching outcomes/probe-orphan.report.json"
+probe-below-floor (#9): gate FAILED with "outcome-gate: overall 2.2 < floor 3.5 for probe-below-floor.outcome.json"
+
+In each case:
+- gh pr view returned mergeStateStatus=BLOCKED, mergeable=MERGEABLE
+- gh pr merge --admin returned "2 of N required status checks are failing" (enforce_admins blocked even admin override)
+- PRs closed; branches deleted
+
+The probe script at scripts/probe.sh codifies these three drills as runnable subcommands so the gate can be re-validated on demand.
+
+Live re-run will land in a future tick on a clean branch (the script does
+`git checkout main && git checkout -b ...` internally and is not safe to
+run from inside a branch that's still being edited).

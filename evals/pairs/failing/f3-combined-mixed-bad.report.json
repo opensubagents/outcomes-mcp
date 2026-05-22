@@ -1,0 +1,46 @@
+{
+  "summary": "We span the failure modes. We recommend nothing.",
+  "claims": [
+    {
+      "statement": "High but unsourced.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://reddit/1",
+          "title": "r1",
+          "accessed": "2026-05-22",
+          "kind": "community"
+        }
+      ]
+    },
+    {
+      "statement": "Low but heavily sourced.",
+      "confidence": "low",
+      "citations": [
+        {
+          "url": "https://example.com/x",
+          "title": "x",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://example.com/y",
+          "title": "y",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://example.com/z",
+          "title": "z",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ]
+    },
+    {
+      "statement": "Low with nothing.",
+      "confidence": "low",
+      "citations": []
+    }
+  ]
+}

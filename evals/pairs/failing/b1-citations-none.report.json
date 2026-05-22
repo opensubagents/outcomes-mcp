@@ -1,0 +1,10 @@
+{
+  "summary": "We claim something but provide no sources. We recommend nothing.",
+  "claims": [
+    {
+      "statement": "Things were vaguely observed.",
+      "confidence": "low",
+      "citations": []
+    }
+  ]
+}

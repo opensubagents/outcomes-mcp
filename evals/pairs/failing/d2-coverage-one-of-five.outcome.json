@@ -1,0 +1,22 @@
+{
+  "title": "Probe \u2014 coverage one of five",
+  "as_of": "2026-05-22",
+  "question": "Does the report cover all five rubric dimensions?",
+  "success_criteria": [
+    "confidence_calibration analysis",
+    "citation_quality analysis",
+    "coverage analysis",
+    "decision_usefulness analysis",
+    "clarity analysis"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "confidence_calibration",
+      "citation_quality",
+      "coverage",
+      "decision_usefulness",
+      "clarity"
+    ]
+  }
+}

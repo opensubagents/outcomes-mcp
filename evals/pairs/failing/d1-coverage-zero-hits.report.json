@@ -1,0 +1,17 @@
+{
+  "summary": "Sentence one. Sentence two. Sentence three. Sentence four. Sentence five. Sentence six.",
+  "claims": [
+    {
+      "statement": "Weather affects throughput.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://reddit/w1",
+          "title": "r1",
+          "accessed": "2026-05-22",
+          "kind": "community"
+        }
+      ]
+    }
+  ]
+}

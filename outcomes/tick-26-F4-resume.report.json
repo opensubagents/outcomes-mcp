@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend shipping RESUME md at the repo root rather than under docs because a fresh Claude session or a new operator looking for the entry point will check the repo root first and the 5-file ordering puts QUEUE md and loop-prompt md first which are the two files that together encode the entire operating model. The tradeoff against a longer onboarding doc is that 5 files is a hard cap that forces the file to be navigational not exhaustive and that mirrors the project's overall ethos of small atomic artifacts. The file ends with a state-at-a-glance section that records the verified track status counts the live worker URL the bearer token path and the heartbeat cron job id plus an explicit next-action recommendation that says the orchestrator is currently in a no-action-needed state because B5 is the only meaningful pending and it is intentionally held for human merge.",
+  "claims": [
+    {
+      "statement": "RESUME md lists 5 files in priority order outcomes QUEUE md .claude loop-prompt md the operator-side memory file at the user home docs adrs 0001-rubric-calibration md and .claude agents README md because the file body declares exactly those 5 numbered headers in sequence with a one-paragraph rationale per file.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/RESUME.md",
+          "title": "RESUME md with the 5 numbered files",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "QUEUE md which is file 1 in the RESUME list",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "File 3 in the list is the operator-side memory file at the user home directory which is not in the repo; the path is included so a reader knows where to look but the file is not committable."
+    },
+    {
+      "statement": "the state-at-a-glance section records all 6 tracks with done blocked and in_progress counts because the file enumerates Track A 5 done Track B 4 done 1 in_progress Track C 5 done 2 blocked Track D 6 done Track E 4 done Track F 3 done plus this file finishing F4.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/RESUME.md",
+          "title": "RESUME md state-at-a-glance section",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "QUEUE md which RESUME's counts derive from",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The counts are verified as of 2026-05-22T07 50 Z and will drift if a future tick advances B5 or unblocks C3 or C6; RESUME should be refreshed whenever a tick changes a track's done/blocked/in_progress distribution."
+    },
+    {
+      "statement": "the file names what to do next when no operator guidance is given as a hold pattern because B5 is the only meaningful pending and is explicitly held for human merge so the orchestrator should keep firing every 5 minutes and continue logging the tick state without attempting a productive atomic step.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/RESUME.md",
+          "title": "RESUME md What's next section",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/pull/18",
+          "title": "outcomes-mcp pull 18 B5 floor ratchet PR held for human merge",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "If the operator merges B5 or updates the C3 or C6 queue rows the hold-pattern recommendation should be refreshed to point at the new lowest-id pending."
+    }
+  ],
+  "open_questions": [
+    "Should RESUME md be auto-generated from QUEUE md by a future tick so the state-at-a-glance section never drifts from the queue truth?"
+  ],
+  "methodology_notes": "Authored RESUME md in a single editing pass enumerating the 5 files with one-paragraph rationale each then appended the state-at-a-glance section verifying every count against QUEUE md and the live worker URL against the C2 runroc."
+}

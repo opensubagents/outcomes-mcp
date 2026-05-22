@@ -79,7 +79,7 @@
 | F1 | done | — | Orchestrator memory at `~/.claude/projects/.../memory/orchestrator.md` | (operator-side file) |
 | F2 | done | C2 | VS Code MCP probe — confirm outcomes-mcp reachable. `.vscode/mcp.json` shipped + text-mode reachability runroc (PNG capture deferred to operator-present action documented in runroc) | `outcomes/runrocs/F2-vscode.md` |
 | F3 | done | C2 | Claude Desktop config check — `docs/claude-desktop-config-snippet.json` + transcript runroc (initialize/tools/list/tools/call against live worker; in-Desktop capture deferred to operator) | `outcomes/runrocs/F3-desktop.md` |
-| F4 | pending | A2,A3,F1 | `RESUME.md` in repo root: top-5 files to read on session resume | `RESUME.md` |
+| F4 | done | A2,A3,F1 | `RESUME.md` in repo root: top-5 files to read on session resume + state-at-a-glance summary of all 6 tracks | `RESUME.md` |
 
 ## Tick log
 
@@ -139,6 +139,8 @@ The heartbeat appends one line per tick:
 - 2026-05-22T07:45Z tick-24 outcomes#3 still red, unchanged; outcomes-mcp#24 (tick 23) merged at 07:36:10Z; outcomes-mcp#18 (B5) still held
 - 2026-05-22T07:50Z tick-25 F3 pending → done (docs/claude-desktop-config-snippet.json shipped via mcp-remote stdio shim; live worker probed end-to-end with initialize→tools/list→tools/call; codemode.spec_info({}) returned canonical_floor 3.5; operator's existing pdf+MCP_DOCKER mcpServers preserved by additive snippet design) | next: F4 (RESUME.md)
 - 2026-05-22T07:50Z tick-25 outcomes#3 still red, unchanged; outcomes-mcp#25 (tick 24) merged at 07:40:49Z; outcomes-mcp#18 (B5) still held
+- 2026-05-22T07:55Z tick-26 F4 pending → done (RESUME.md shipped at repo root: 5 priority-ordered files + state-at-a-glance for all 6 tracks + live infra + next-action recommendation that acknowledges the current hold-pattern state). **Track F now COMPLETE (F1/F2/F3/F4 all done)** | next: ONLY B5 remains, held for human merge — orchestrator in hold pattern
+- 2026-05-22T07:55Z tick-26 outcomes#3 still red, unchanged; outcomes-mcp#26 (tick 25) merged at 07:46:16Z; outcomes-mcp#18 (B5) still held. **31-outcome roadmap: 25 done · 4 blocked (C3/C6/outcomes#3) or held (B5) · 0 pending unblocked**
 
 
 

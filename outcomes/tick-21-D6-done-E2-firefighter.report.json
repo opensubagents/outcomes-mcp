@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend bundling the D6 done-flip with the E2 ci-firefighter re-dispatch in a single tick because both are paper-trail and orchestration-surface work that compose cleanly and the ci-firefighter dedup proof is a one-shot exercise that benefits from sitting in the same PR as the D6 close-out. The tradeoff against waiting to re-dispatch ci-firefighter until a new red PR appears is that the long-standing red outcomes pull 3 is the canonical case the subagent is designed for so exercising it now proves the runnable claim without needing a fresh failure. D6 row flips done because opensubagents outcomes pull 12 merged at 07 17 Z and E2 row flips done because the subagent classified outcome-gate observed the prior triage comment and correctly posted no duplicate.",
+  "claims": [
+    {
+      "statement": "QUEUE row D6 flipped from in_progress to done because opensubagents outcomes pull 12 merged at 07 17 06 Z landing the optional --check-urls flag on the open-outcome CLI with the merged-PR URL preserved as the runroc.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes/pull/12",
+          "title": "outcomes pull 12 merged at 07 17 Z adds the --check-urls flag",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/QUEUE.md",
+          "title": "QUEUE md D6 row updated to done with the cross-repo PR URL",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Track D is now complete with D1 through D6 all done; B5 remains the only unresolved Track B item and it is intentionally held for operator merge."
+    },
+    {
+      "statement": "the ci-firefighter subagent was re-dispatched via the Agent tool against opensubagents outcomes pull 3 and classified the failure as outcome-gate identifying the root cause as a missing outcome+report pair on the PR which is unchanged from the original triage in tick 3.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/.claude/agents/ci-firefighter.md",
+          "title": "ci-firefighter role spec classification rules and 60 second budget",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes/pull/3#issuecomment-4515536028",
+          "title": "prior ci-firefighter triage comment on outcomes pull 3 from tick 3",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The subagent observed that the prior comment uses a bold inline header rather than the new H2 header but the classification and root cause are identical so the dedup rule applies regardless of header style."
+    },
+    {
+      "statement": "the subagent honored the no-duplicate rule by detecting the prior alex-jadecli ci-firefighter comment on outcomes pull 3 and skipping a new post because the runroc shows the prior comment is still the only ci-firefighter comment on the PR after the re-dispatch.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/E2-ci-firefighter.json",
+          "title": "E2 runroc records the prior comment author URL and the no-new-post outcome",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/.claude/agents/ci-firefighter.md",
+          "title": "ci-firefighter role spec section on dedup and the only-on-changed-failure rule",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "If a future tick observes a different failure classification on outcomes pull 3 the subagent should post a new comment; the dedup logic keys on classification not on time elapsed since the prior comment."
+    }
+  ],
+  "open_questions": [
+    "Should the ci-firefighter role spec be updated to normalize comment header style so both bold-inline and H2-header forms count as duplicates without case-by-case judgment?"
+  ],
+  "methodology_notes": "Dispatched the ci-firefighter subagent via the Agent tool with subagent_type general-purpose passing the role spec path. The subagent read the spec ran gh pr view and gh pr checks on outcomes pull 3 classified outcome-gate observed the prior comment and skipped posting. Captured the prior comment as the runroc via gh pr view json comments filter on ci-firefighter substring."
+}

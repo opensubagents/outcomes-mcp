@@ -36,7 +36,7 @@
 |---|---|---|---|---|
 | B1 | done | A1 | Prove `typecheck` workflow runs green on a probe commit | `outcomes/runrocs/B1-typecheck-runs.json` |
 | B2 | done | A1 | Subsumed into A1 — branch protection already covers outcomes-mcp main | `outcomes/runrocs/A1-protection.json` |
-| B3 | pending | A1 | Submodule outcomes-mcp into `opensubagents/outcomes/mcp-server/` via PR on outcomes repo | PR URL on outcomes |
+| B3 | in_progress | A1 | Submodule outcomes-mcp into `opensubagents/outcomes/mcp-server/` via PR on outcomes repo | https://github.com/opensubagents/outcomes/pull/10 |
 | B4 | pending | A1 | `scripts/probe.sh below-floor` opens a draft PR with known-failing pair; asserts gate red | `runrocs/B4-probe.log` |
 | B5 | pending | D3 | Ratchet floor 3.5→4.0 in a feature branch; bootstrap pair must still pass; hold for human merge | PR URL |
 
@@ -97,6 +97,9 @@ The heartbeat appends one line per tick:
 - 2026-05-22T06:00Z tick-3 dispatched ci-firefighter subagent on outcomes#3: classified as outcome-gate failure (missing pair); posted triage comment + tagged @alex-jadecli; PR author owns the fix
 - 2026-05-22T06:05Z tick-4 B1 pending → done (typecheck runroc captured 6 runs all SUCCESS) + B2 pending → done (subsumed into A1) | next: B3
 - 2026-05-22T06:05Z tick-4 outcomes#3 still red: same outcome-gate-missing-pair situation; firefighter already triaged it, awaiting operator action
+- 2026-05-22T06:10Z tick-5 B3 pending → in_progress (cross-repo PR opensubagents/outcomes#10 opened with submodule + docs; auto-merge armed; will mark done next tick after merge) | next: B4
+- 2026-05-22T06:10Z tick-5 outcomes#3 still red, unchanged; no re-dispatch
+
 
 
 

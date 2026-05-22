@@ -1,0 +1,21 @@
+{
+  "title": "Tick 22: prove the rubric-tightener subagent is runnable by dispatching it against the perfect D3 matrix and producing a defensible no-tightening-needed verdict",
+  "as_of": "2026-05-22",
+  "question": "Did the rubric-tightener subagent dispatched against the current D3 confusion matrix at evals results 2026-05-22 json correctly conclude no_tightening_needed because the matrix has zero FP and zero FN and cite ADR 0001 rubric-calibration's blind-spot reasoning rather than propose an unjustified change?",
+  "success_criteria": [
+    "Agent tool dispatched the rubric-tightener subagent against evals results 2026-05-22 json and the subagent followed the documented procedure without touching any SDK file",
+    "the subagent observed TP=20 FN=0 TN=20 FP=0 and accuracy 1.0 and concluded no_tightening_needed",
+    "the subagent's rationale cites ADR 0001 rubric-calibration md naming the 3.5 to 4.4 calibration blind spot as the reason to defer tightening",
+    "runroc outcomes runrocs E3-rubric-tightener md records the verdict matrix summary rationale and the next-action plan for a future non-perfect matrix"
+  ],
+  "archetype": "capability_audit",
+  "archetype_fields": {
+    "capabilities": [
+      "rubric-tightener subagent dispatchable via the Agent tool",
+      "subagent correctly handles the role-spec's expected matrix shape divergence from the actual eval.sh JSON shape",
+      "subagent honors the role constraint that any tightening must be motivated by FP or FN evidence and concludes no-tightening-needed when none exists",
+      "runroc captures the verdict the matrix the rationale and the next-action plan"
+    ]
+  },
+  "requester": "alex@jadecli.com"
+}

@@ -1,0 +1,66 @@
+{
+  "summary": "We recommend treating C5 as done because the Cloudflare Workers Observability MCP returned a non-empty calculation aggregation for the outcomes-mcp service grouped by trigger with 16 total requests across five distinct triggers in the last 30 minutes. The tradeoff against polling observability on every future tick is that the orchestrator only needs the one-time confirmation that the surface is wired correctly and the runroc captures the query parameters so any tick can replay it. Both GET healthz and POST mcp triggers are visible which proves the gate paths the orchestrator exercises are reaching observability.",
+  "claims": [
+    {
+      "statement": "query_worker_observability filtered by dollar metadata service eq outcomes-mcp grouped by dollar metadata trigger returned five rows GET slash 7 GET slash favicon ico 3 GET slash healthz 2 HEAD slash 2 and POST slash mcp 2 for a total of 16 requests in the last 30 minutes.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C5-obs.json",
+          "title": "C5 runroc captures the observability aggregation rows with trigger and count",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://developers.cloudflare.com/workers/observability/",
+          "title": "Cloudflare Workers Observability reference documenting the dollar metadata trigger key and the calculation view",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The favicon and root traffic are passive and likely come from operator browser sessions and Cloudflare edge HEAD probes; they do not represent intentional orchestrator probes but they confirm the worker is reachable from the public internet."
+    },
+    {
+      "statement": "the POST slash mcp count of 2 in the 30 minute window is consistent with the C4 valid-bearer initialize probe at 06:26 and the tick-10 no-auth POST mcp probe at 06:29 which proves the orchestrator exercises are reaching observability with the expected request shape.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C4-auth.txt",
+          "title": "C4 runroc shows the bearer-protected POST mcp probe at 06:26",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C5-obs.json",
+          "title": "C5 runroc shows the POST mcp aggregation count of 2",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "Observability counts include both 200 and 401 responses so the count alone does not distinguish authenticated vs rejected requests; to break that out the query would need to group by status code as well which is a future enhancement not a C5 revival."
+    },
+    {
+      "statement": "the evidence window covers 06 00 30 Z through 06 29 30 Z and observability returned 59 timestamp buckets across that range which confirms the wall clock the orchestrator is operating on matches the wall clock observability is recording requests with within the same minute.",
+      "confidence": "high",
+      "citations": [
+        {
+          "url": "https://github.com/opensubagents/outcomes-mcp/blob/main/outcomes/runrocs/C5-obs.json",
+          "title": "C5 runroc records the evidence window and the 59 series timestamps",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        },
+        {
+          "url": "https://developers.cloudflare.com/workers/observability/logs/workers-logs/",
+          "title": "Cloudflare Workers Logs reference describing the timestamp series resolution",
+          "accessed": "2026-05-22",
+          "kind": "primary"
+        }
+      ],
+      "caveats": "The series timestamps are 30 second buckets; sub-second jitter between the probe wall clock and the bucket boundary will sometimes land a probe in the next bucket but this does not affect the count aggregation."
+    }
+  ],
+  "open_questions": [
+    "Should the orchestrator extend the C5 surface to a recurring 1-tick observability heartbeat that flags new error spikes or is a one-shot confirmation sufficient for the Track C close-out?"
+  ],
+  "methodology_notes": "Issued one pre-query traffic probe to refresh the calculation window then called query_worker_observability with view calculations service filter and trigger group-by. The aggregation rows were copied into the runroc JSON verbatim along with the query parameters."
+}

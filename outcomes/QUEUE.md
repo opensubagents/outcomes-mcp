@@ -27,7 +27,7 @@
 | A1 | done | — | Branch protection on `opensubagents/outcomes-mcp` main (require `outcome-gate`, enforce_admins, linear history) | `outcomes/runrocs/A1-protection.json` |
 | A2 | done | — | QUEUE.md committed at `outcomes/QUEUE.md` with all 31 outcomes | `outcomes/QUEUE.md` |
 | A3 | done | — | Heartbeat prompt committed at `.claude/loop-prompt.md` | `.claude/loop-prompt.md` |
-| A4 | pending | A3 | Three review subagents codified in `.claude/agents/`: outcome-reviewer, ci-firefighter, rubric-tightener | `.claude/agents/README.md` |
+| A4 | done | A3 | Three review subagents codified in `.claude/agents/`: outcome-reviewer, ci-firefighter, rubric-tightener | `.claude/agents/README.md` |
 | A5 | pending | — | Session-start hook (background dispatch + sentinel guard, <100ms blocking) at `.claude/settings.json` + `scripts/session-start.sh` | `runrocs/A5-latency.txt` |
 
 ### Track B — Outcome-gate hardening
@@ -91,4 +91,7 @@ The heartbeat appends one line per tick:
 
 - 2026-05-22T05:45Z tick-1 A1 pending → done (branch protection PUT, runroc A1-protection.json) | next: A4
 - 2026-05-22T05:45Z tick-1 noted: outcomes#3 has 1 failing check; ci-firefighter subagent (A4) not yet shipped, will revisit after A4 merges
+- 2026-05-22T05:50Z tick-2 A4 pending → done (3 subagents codified in .claude/agents/) | next: A5
+- 2026-05-22T05:50Z tick-2 noted: outcomes#3 still red; ci-firefighter now exists but the heartbeat itself didn't spawn it this tick (one atomic step rule); will spawn next tick
+
 
